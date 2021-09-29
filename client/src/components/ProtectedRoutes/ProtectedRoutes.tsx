@@ -2,13 +2,9 @@ import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAuth } from '../../context/useAuthContext';
 
-interface PrivateRouteProps extends RouteProps {
-  isAuthenticated: boolean;
-}
-
-const ProtectedRoutes: React.FC<PrivateRouteProps> = ({ ...rest }) => {
+const ProtectedRoutes: React.FC<RouteProps> = ({ ...rest }) => {
   const auth = useAuth();
-  if (auth.loggedInUser === null) return <Redirect to="/login" />;
+  if (auth.loggedInUser === null || auth.loggedInUser === undefined) return <Redirect to="/login" />;
 
   return <Route {...rest} />;
 };
