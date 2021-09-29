@@ -26,7 +26,6 @@ const ProfileSchema = new mongoose.Schema({
       city: String,
       province: String,
       country: String,
-      require: true
     },
     isAvailable:{
         type: Boolean,
