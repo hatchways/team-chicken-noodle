@@ -6,10 +6,9 @@ const {
   requestCreate,
   requestUpdate
 } = require("../controllers/request");
-const { validateRequest } = require("../validate");
 
-router.route("/list").get(protect, requestList);
-router.route("/create").post(protect, requestCreate);
-router.route("/update").put(protect, requestUpdate);
+router.route("/").get(protect, requestList);
+router.route("/").post(protect, requestCreate);
+router.route("/:id").post(protect, requestUpdate);
 
 module.exports = router;
