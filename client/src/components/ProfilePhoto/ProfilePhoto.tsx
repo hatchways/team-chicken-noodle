@@ -13,20 +13,23 @@ export default function ProfilePhoto(): JSX.Element {
         container
         direction="column"
         alignItems="center"
+        xs={12}
+        sm={8}
+        md={7}
         elevation={6}
         className={classes.profileContainer}
         component={Paper}
       >
-        <Grid item>
-          <Typography variant="h5" align="center">
+        <Grid item className={classes.title}>
+          <Typography variant="h5" align="center" className={classes.titleText}>
             Profile Photo
           </Typography>
         </Grid>
         <Grid item>
           <Avatar alt="Profile Image" src="https://robohash.org/pursharth01@gmail.com.png" className={classes.avatar} />
         </Grid>
-        <Grid item>
-          <Typography variant="caption" align="center">
+        <Grid item className={classes.caption}>
+          <Typography variant="caption" align="center" className={classes.captionText}>
             Be sure to use a photo that clearly shows your face
           </Typography>
         </Grid>
