@@ -29,11 +29,11 @@ exports.requestUpdate = asyncHandler(async (req, res, next) => {
   const { status } = req.body;
   const { id } = req.params;
 
-  const request = await Request.findOne({ _id: id });
+  const request = await Request.findById( id );
   request.status = status;
   await request.save();
 
-  res.status(200).json({ 
+  res.status(201).json({ 
     message: 'request updated',
     request: request
   });
