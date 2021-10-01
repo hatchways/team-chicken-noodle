@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 
-const reqString = {
-    type: String,
-    require: true
-};
-
-const ProfileSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        required: true,
         ref: 'user'
     },
-    firstName: reqString,
-    lastName: reqString,
-    email: reqString,
+    firstName: {
+        type: String,
+        required: [true, "Please Provide First Name."]
+    },
+    lastName: {
+        type: String,
+        required: [true, "Please Provide Last Name."]
+    },
     description: {
         type: String,
         maxlength: 300
     },
-    gender: String,
+    gender: {
+        type: String,
+        enum: ["Unkown", "Male", "Female"]
+    },
     birthDate: Date,
-    phoneNumber: [String],
+    phoneNumber: String,
     hourlyRate: Number,
     address: {
       city: String,
@@ -32,10 +35,26 @@ const ProfileSchema = new mongoose.Schema({
         default: false
     },
     availability: {
-        days: [String],
-        hours: String
+        days: {
+            Monday: { type: Boolean, default: true },
+            Tuesday: { type: Boolean, default: true },
+            Wednesday: { type: Boolean, default: true },
+            Thursday: { type: Boolean, default: true},
+            Friday: { type: Boolean, default: true },
+            Saturday: { type: Boolean, default: false },
+            Sunday: { type: Boolean, default: false },
+          },
+          hours: {
+            end: String,
+            start: String,
+          }      
     },
-    profilePhoto: [String] 
+    profilePhoto: String,
+    bioImage: [String],
+    oneSentenceDescription: {
+        type: String,
+        maxlength: 20
+    } 
 });
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Profile = mongoose.model("profile", profileSchema);

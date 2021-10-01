@@ -5,18 +5,17 @@ const asyncHandler = require("express-async-handler");
 // @desc create a profile
 // @access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
+
+    const profileExists = await Profile.findOne({ userId:userId });
+    if (profileExists) {
+        res.status(400);
+        throw new Error("A user profile already registered");
+    }
+
     const {
-        userId,
-        firstName,
-        lastName,
-        description,
-        gender,
-        address,
-        birthDate,
-        email,
-        phoneNumber,
-        isAvailable,
-        availability
+        firstName, lastName, description, gender,
+        address, birthDate, phoneNumber, isAvailable, availability
     } = req.body
     
     const profile = await Profile.create({
@@ -26,7 +25,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
         description,
         gender,
         birthDate,
-        email,
         phoneNumber,
         address,
         isAvailable,
@@ -65,7 +63,7 @@ exports.findAllProfiles= asyncHandler(async (req, res, next) => {
 // @desc find a profile
 // @access Private
 exports.findProfileById = asyncHandler(async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.user.id;
 
     const profile = await Profile.findOne({ userId:id });
 
@@ -84,19 +82,21 @@ exports.findProfileById = asyncHandler(async (req, res, next) => {
 // @desc update a profile
 // @access Private
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-    const query = req.query;
-    const userId = query.id;
-    delete query['id'];
+    const id = req.user.id;
     
-    const profiles = await Profile.findOneAndUpdate(userId, query, {new: true});
+    await Profile.findOneAndUpdate({ userId:id },{
+        $set:req.body
+    })
     
-    if(!profiles) {
+    const profile = await Profile.findOne({ userId:id });
+    
+    if(!profile) {
         res.status(404);
-        throw new Error(`Cannot find a user profile.`);
+        throw new Error("Cannot find a user profile.");
     }
 
     res.status(200).json({
         success: true,
-        data: profiles
+        data: profile
     });
 });
