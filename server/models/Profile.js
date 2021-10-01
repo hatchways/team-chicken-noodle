@@ -51,7 +51,7 @@ const profileSchema = new mongoose.Schema({
     },
     profilePhoto: String,
     bioImage: [String],
-    oneSentenceDescription: {
+    shortDescription: {
         type: String,
         maxlength: 20
     } 
