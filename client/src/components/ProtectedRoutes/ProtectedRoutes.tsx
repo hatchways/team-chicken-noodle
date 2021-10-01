@@ -4,7 +4,7 @@ import { useAuth } from '../../context/useAuthContext';
 
 const ProtectedRoutes: React.FC<RouteProps> = ({ ...rest }) => {
   const auth = useAuth();
-  if (auth.loggedInUser === null || auth.loggedInUser === undefined) return <Redirect to="/login" />;
+  if (!auth.loggedInUser) return <Redirect to="/login" />;
 
   return <Route {...rest} />;
 };
