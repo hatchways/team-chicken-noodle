@@ -11,7 +11,6 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
-
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
