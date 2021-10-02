@@ -21,7 +21,7 @@ export default function ProfilePhoto(): JSX.Element {
         component={Paper}
       >
         <Grid item className={classes.title}>
-          <Typography variant="h5" align="center" className={classes.titleText}>
+          <Typography variant="h4" align="center" className={classes.titleText}>
             Profile Photo
           </Typography>
         </Grid>
@@ -29,7 +29,7 @@ export default function ProfilePhoto(): JSX.Element {
           <Avatar alt="Profile Image" src={ProfileImage} className={classes.avatar} />
         </Grid>
         <Grid item className={classes.caption}>
-          <Typography variant="caption" align="center" className={classes.captionText}>
+          <Typography variant="subtitle2" align="center">
             Be sure to use a photo that clearly shows your face
           </Typography>
         </Grid>

@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '10rem',
-    marginBottom: '10rem',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: '10rem',
+    marginBottom: '10rem',
     minWidth: '20rem',
   },
   profileContainer: {
@@ -21,9 +22,8 @@ const useStyles = makeStyles(() => ({
     marginTop: '5rem',
   },
   titleText: {
-    fontFamily: 'Roboto',
-    fontWeight: 'bolder',
-    fontSize: '1.5rem',
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 'bold',
     margin: 'auto',
   },
   avatar: {
@@ -33,27 +33,22 @@ const useStyles = makeStyles(() => ({
   },
   caption: {
     marginTop: '2rem',
-    color: '#9e9e9e',
+    color: theme.palette.text.secondary,
     width: '10rem',
-    textAlign: 'center',
-  },
-  captionText: {
-    fontSize: '12px',
   },
   uploadBtn: {
     marginTop: '2rem',
-    color: '#d32f2f',
-    fontSize: '12px',
+    color: theme.palette.error.dark,
     lineHeight: '3rem',
     minWidth: '20rem',
   },
   deleteBtn: {
-    color: '#9e9e9e',
+    color: theme.palette.text.secondary,
     marginTop: '2rem',
     marginBottom: '5rem',
   },
   deleteIcon: {
-    color: '#000000',
+    color: theme.palette.common.black,
   },
 }));
 
