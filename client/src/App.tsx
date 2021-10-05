@@ -9,7 +9,6 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
 import './App.css';
-import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 
 function App(): JSX.Element {
   return (
@@ -21,9 +20,9 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoutes exact path="/dashboard">
+                <Route exact path="/dashboard">
                   <Dashboard />
-                </ProtectedRoutes>
+                </Route>
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
