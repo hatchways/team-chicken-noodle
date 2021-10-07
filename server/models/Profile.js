@@ -35,18 +35,33 @@ const profileSchema = new mongoose.Schema({
     default: false,
   },
   availability: {
-    days: {
-      Monday: { type: Boolean, default: true },
-      Tuesday: { type: Boolean, default: true },
-      Wednesday: { type: Boolean, default: true },
-      Thursday: { type: Boolean, default: true },
-      Friday: { type: Boolean, default: true },
-      Saturday: { type: Boolean, default: false },
-      Sunday: { type: Boolean, default: false },
+    mon: {
+      from: String,
+      to: String,
     },
-    hours: {
-      end: String,
-      start: String,
+    tue: {
+      from: String,
+      to: String,
+    },
+    Wed: {
+      from: String,
+      to: String,
+    },
+    thu: {
+      from: String,
+      to: String,
+    },
+    fri: {
+      from: String,
+      to: String,
+    },
+    sat: {
+      from: String,
+      to: String,
+    },
+    sun: {
+      from: String,
+      to: String,
     },
   },
   profilePhoto: String,
