@@ -1,4 +1,3 @@
-require('dotenv').config()
 const S3 = require('aws-sdk/clients/s3');
 const fs = require('fs');
 
@@ -13,7 +12,6 @@ const s3 = new S3({
     secretAccessKey
 })
 
-//upload a file to s3
 function uploadFile(file) {
     const fileStream = fs.createReadStream(file.path);
     const uploadParams = {
@@ -31,7 +29,15 @@ function getFileStream(fileKey) {
         Key: fileKey,
         Bucket: bucketName
     }
-    return s3.getObject(downloadParams).createReadStream()
+    return new Promise((resolve, reject) => {
+        s3.getObject(downloadParams, (err, data) => {
+            if (err) {
+                reject({message: "Access Denied: Invalid key for image"})
+            } else {
+                resolve(data.Body)
+            }
+        })
+    })
 }
 exports.getFileStream = getFileStream;
 
