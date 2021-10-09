@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { uploadFile, getFileStream } = require('../utils/s3');
+const { uploadFile, getFile } = require('../utils/s3');
 const fs = require('fs');
 const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
@@ -20,6 +20,6 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.getImage = asyncHandler(async (req, res, next) => {
   const imageKey = req.params.key
-  const readStream = await getFileStream(imageKey);
-  res.send(readStream);
+  const imageFile = await getFile(imageKey);
+  res.send(imageFile);
 });

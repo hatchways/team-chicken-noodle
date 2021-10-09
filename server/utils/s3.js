@@ -12,7 +12,7 @@ const s3 = new S3({
     secretAccessKey
 })
 
-function uploadFile(file) {
+export function uploadFile(file) {
     const fileStream = fs.createReadStream(file.path);
     const uploadParams = {
         Bucket: bucketName,
@@ -21,10 +21,9 @@ function uploadFile(file) {
     }
     return s3.upload(uploadParams).promise();
 }
-exports.uploadFile = uploadFile;
+;
 
-// download a file from s3
-function getFileStream(fileKey) {
+export function getFile(fileKey) {
     const downloadParams = {
         Key: fileKey,
         Bucket: bucketName
@@ -32,14 +31,13 @@ function getFileStream(fileKey) {
     return new Promise((resolve, reject) => {
         s3.getObject(downloadParams, (err, data) => {
             if (err) {
-                reject({message: "Access Denied: Invalid key for image"})
+                reject(err.message)
             } else {
                 resolve(data.Body)
             }
         })
     })
 }
-exports.getFileStream = getFileStream;
 
 
 
