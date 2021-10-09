@@ -4,7 +4,6 @@ import { FetchOptions } from '../../interface/FetchOptions';
 const uploadImage = async (file: File): Promise<AuthApiData> => {
   const formData = new FormData();
   formData.append('image', file);
-  console.log(typeof formData);
   const fetchOptions: FetchOptions = {
     method: 'POST',
     body: formData,

@@ -17,7 +17,6 @@ export default function ProfilePhoto(): JSX.Element {
       const imageFile = event.currentTarget.files[0];
       uploadImage(imageFile).then((data) => {
         if (data.error) {
-          console.log('error');
           updateSnackBarMessage(data.error.message);
         } else if (data.success) {
           const key: string = data.success.key;
@@ -25,16 +24,12 @@ export default function ProfilePhoto(): JSX.Element {
           setProfileImage(`/images/${key}`);
           updateSnackBarMessage('Image upload successful');
         } else {
-          console.error(data);
           updateSnackBarMessage('An unexpected error occurred. Please try again');
         }
       });
     }
   };
-  React.useEffect(() => {
-    console.log(profileImage);
-  }),
-    [profileImage];
+
   return (
     <Container className={classes.root}>
       <Grid
