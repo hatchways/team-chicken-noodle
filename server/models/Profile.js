@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const hourSchema = mongoose.Schema({
+  from: String,
+  to: String,
+});
+
 const profileSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +32,7 @@ const profileSchema = new mongoose.Schema({
   hourlyRate: Number,
   address: {
     city: String,
-    province: String,
+    state: String,
     country: String,
   },
   isAvailable: {
@@ -35,34 +40,13 @@ const profileSchema = new mongoose.Schema({
     default: false,
   },
   availability: {
-    mon: {
-      from: String,
-      to: String,
-    },
-    tue: {
-      from: String,
-      to: String,
-    },
-    Wed: {
-      from: String,
-      to: String,
-    },
-    thu: {
-      from: String,
-      to: String,
-    },
-    fri: {
-      from: String,
-      to: String,
-    },
-    sat: {
-      from: String,
-      to: String,
-    },
-    sun: {
-      from: String,
-      to: String,
-    },
+    monday: hourSchema,
+    tuesday: hourSchema,
+    wednesday: hourSchema,
+    thursday: hourSchema,
+    friday: hourSchema,
+    saturday: hourSchema,
+    sunday: hourSchema,
   },
   profilePhoto: String,
   bioImage: [String],
