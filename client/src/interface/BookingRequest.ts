@@ -1,4 +1,4 @@
-export interface IRequest {
+export interface BookingRequest {
   status: string;
   sitterId: string;
   start: Date;
