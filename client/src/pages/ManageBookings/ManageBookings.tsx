@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Booking from '../../components/Booking/Booking';
+import NoBooking from '../../components/Booking/NoBooking';
 import { BookingRequest } from '../../interface/BookingRequest';
 import { mockBookingRequest } from '../../mocks/mockBookingRequest';
 
@@ -16,39 +17,33 @@ import { useHistory } from 'react-router-dom';
 import useStyles from './useStyles';
 
 const ManageBookings = (): JSX.Element => {
-  const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
 
-  const history = useHistory();
   const classes = useStyles();
 
   useEffect(() => {
     initSocket();
   }, [initSocket]);
 
-  const [date, changeDate] = useState<MaterialUiPickersDate>(new Date());
+  const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
   const [isSelectedDate, setIsSelectedDate] = useState<boolean>(false);
 
   const [requests, setRequests] = useState<Array<BookingRequest>>(mockBookingRequest);
-  const nextBooking = requests.reduce((request, closest) =>
-    new Date(request.start.getTime() - new Date().getTime()) < closest.start &&
-    request.start &&
-    request.start > new Date()
-      ? (closest = request)
-      : (closest = closest),
-  );
-  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
 
-  if (loggedInUser === undefined) return <CircularProgress />;
-  if (!loggedInUser) {
-    history.push('/login');
-    // loading for a split seconds until history.push works
-    return <CircularProgress />;
-  }
+  const nextBooking = requests
+    .filter((request) => request.start.getTime() - new Date().getTime() > 0)
+    .reduce(
+      (request, closest) =>
+        closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+          ? (closest = request)
+          : (closest = closest),
+      requests[0],
+    );
+  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
 
   const handleDateChange = (e: MaterialUiPickersDate) => {
     if (!e) return;
-    changeDate(e);
+    setDate(e);
     setIsSelectedDate(true);
     const request = requests.find(
       (request) => Intl.DateTimeFormat('en').format(request.start) === Intl.DateTimeFormat('en').format(e),
@@ -73,62 +68,66 @@ const ManageBookings = (): JSX.Element => {
     return component;
   };
 
+  let currentBookings: (JSX.Element | undefined)[];
+  const currentBookingRequests = requests.filter(
+    (request) => request.start > new Date() && request !== selectedBooking,
+  );
+  if (currentBookingRequests.length) {
+    currentBookings = currentBookingRequests.map((request) => (
+      <Booking
+        key={`${request.sitterId}${request.start.toString()}`}
+        status={request.status}
+        start={request.start}
+        end={request.end}
+        sitterId={request.sitterId}
+      />
+    ));
+  } else {
+    currentBookings = [<NoBooking key="noPastBooking" text="No current bookings found" />];
+  }
+
+  let pastBookings: (JSX.Element | undefined)[];
+  const pastBookingRequests = requests.filter((request) => request.start < new Date());
+  if (pastBookingRequests.length) {
+    pastBookings = pastBookingRequests.map((request) => (
+      <Booking
+        key={`${request.sitterId}${request.start.toString()}`}
+        status={request.status}
+        start={request.start}
+        end={request.end}
+        sitterId={request.sitterId}
+      />
+    ));
+  } else {
+    pastBookings = [<NoBooking key="noPastBooking" text="No past bookings found" />];
+  }
+
   return (
     <Grid container className={classes.root}>
       <Grid container xs={6} className={classes.bookingsPart}>
-        <Paper key="selectedBookingPaper" className={classes.bookingPaper}>
+        <Paper className={classes.bookingPaper}>
           <Typography className={classes.selectedBooking}>
-            {isSelectedDate ? 'BOOKINGS ON SELECTED DATE:' : 'YOUR NEXT BOOKING:'}
+            {isSelectedDate ? 'booking on selected date' : 'your next booking:'}
           </Typography>
           {(selectedBooking && (
             <Booking
               status={selectedBooking.status}
-              start={new Date(selectedBooking.start)}
-              end={new Date(selectedBooking.end)}
+              start={selectedBooking.start}
+              end={selectedBooking.end}
               sitterId={selectedBooking.sitterId}
             />
-          )) || (
-            <Paper>
-              <Grid className={classes.noBooking}>
-                <Typography>No bookings on selected date</Typography>
-              </Grid>
-            </Paper>
-          )}
+          )) || <NoBooking text="No bookings for selected date" />}
         </Paper>
-        <Paper key="currentBookingsPaper" className={classes.bookingPaper}>
-          <Typography className={classes.selectedBooking}>CURRENT BOOKINGS:</Typography>
-          <Box overflow="auto" style={{ height: '200px' }}>
-            {requests.map((request) => {
-              if (request.start > new Date() && request != selectedBooking) {
-                return (
-                  <Booking
-                    key={`${request.sitterId}${request.start.toString()}`}
-                    status={request.status}
-                    start={request.start}
-                    end={request.end}
-                    sitterId={request.sitterId}
-                  />
-                );
-              }
-            })}
+        <Paper className={classes.bookingPaper}>
+          <Typography className={classes.selectedBooking}>current bookings:</Typography>
+          <Box overflow="auto" maxHeight="200px">
+            {currentBookings}
           </Box>
         </Paper>
-        <Paper key="pastBookingsPaper" className={classes.bookingPaper}>
-          <Typography className={classes.selectedBooking}>PAST BOOKINGS:</Typography>
-          <Box overflow="auto" style={{ height: '200px' }}>
-            {requests.map((request) => {
-              if (request.start < new Date()) {
-                return (
-                  <Booking
-                    key={`${request.sitterId}${request.start.toString()}`}
-                    status={request.status}
-                    start={request.start}
-                    end={request.end}
-                    sitterId={request.sitterId}
-                  />
-                );
-              }
-            })}
+        <Paper className={classes.bookingPaper}>
+          <Typography className={classes.selectedBooking}>past bookings:</Typography>
+          <Box overflow="auto" maxHeight="200px">
+            {pastBookings}
           </Box>
         </Paper>
       </Grid>

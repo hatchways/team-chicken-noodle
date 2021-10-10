@@ -24,7 +24,7 @@ function App(): JSX.Element {
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
-                <Route exact path="/manage_bookings">
+                <Route exact path="/manage-bookings">
                   <ManageBookings />
                 </Route>
                 <Route path="*">

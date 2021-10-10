@@ -46,10 +46,10 @@ const Booking = ({ start, end, status, sitterId }: BookingRequest): JSX.Element 
         </Grid>
         <Grid container xs={4} direction="column" className={classes.rightColumn}>
           <Grid>
-            <IconButton size="small" aria-controls="bookingSubmenu" aria-haspopup="true" onClick={handleClick}>
+            <IconButton size="small" aria-controls="booking-sub-menu" aria-haspopup="true" onClick={handleClick}>
               <SettingsIcon fontSize="small" />
             </IconButton>
-            <Menu id="bookingSubmenu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+            <Menu id="booking-sub-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
               <MenuItem onClick={handleClose}>Cancel</MenuItem>
               <MenuItem onClick={handleClose}>About</MenuItem>
               <MenuItem onClick={handleClose}>Other action</MenuItem>

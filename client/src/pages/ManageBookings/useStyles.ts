@@ -15,16 +15,11 @@ const useStyles = makeStyles({
   },
   selectedBooking: {
     padding: 7,
+    textTransform: 'uppercase',
   },
   calendarGrid: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-  },
-  noBooking: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '10px',
-    padding: '20px',
   },
   upcomingBookingCircle: {
     width: '35px',
