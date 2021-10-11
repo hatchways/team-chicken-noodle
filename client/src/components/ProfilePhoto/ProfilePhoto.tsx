@@ -1,5 +1,5 @@
 import { Grid, Container, Typography, Button } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useStyles from './useStyles';
 import { Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,31 +7,18 @@ import { DeleteForeverOutlined } from '@material-ui/icons';
 import uploadImage from '../../helpers/APICalls/uploadImage';
 import updateProfileImage from '../../helpers/APICalls/updateProfile';
 import { useSnackBar } from '../../context/useSnackbarContext';
+interface ProfileImageKey {
+  key: string;
+}
 
 export default function ProfilePhoto(): JSX.Element {
   const classes = useStyles();
   const [profileImage, setProfileImage] = React.useState<string>('');
   const { updateSnackBarMessage } = useSnackBar();
-  const handleSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectImage = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.files) {
       const imageFile = event.currentTarget.files[0];
-      uploadImage(imageFile).then((data) => {
-        if (data.error) {
-          updateSnackBarMessage(data.error.message);
-        } else if (data.success) {
-          const key: string = data.success.key;
-          updateProfileImage(key).then((data) => {
-            if (data.error) {
-              updateSnackBarMessage(data.error.message);
-            } else if (data.success) {
-              setProfileImage(`/images/${key}`);
-              updateSnackBarMessage('Image upload successful');
-            }
-          });
-        } else {
-          updateSnackBarMessage('An unexpected error occurred. Please try again');
-        }
-      });
+      handleUploadImage(imageFile);
     }
   };
 
@@ -78,4 +65,28 @@ export default function ProfilePhoto(): JSX.Element {
       </Grid>
     </Container>
   );
+
+  function handleUploadImage(imageFile: File): void {
+    uploadImage(imageFile).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        const imageKey: ProfileImageKey = { key: data.success.key };
+        handleUpdateProfileImage(imageKey.key);
+      } else {
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  }
+
+  function handleUpdateProfileImage(key: string): void {
+    updateProfileImage(key).then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else {
+        setProfileImage(`/images/${key}`);
+        updateSnackBarMessage('Image upload successful');
+      }
+    });
+  }
 }
