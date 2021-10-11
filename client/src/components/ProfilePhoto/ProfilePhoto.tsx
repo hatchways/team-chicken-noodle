@@ -5,7 +5,7 @@ import { Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import { DeleteForeverOutlined } from '@material-ui/icons';
 import uploadImage from '../../helpers/APICalls/uploadImage';
-import updateProfile from '../../helpers/APICalls/updateProfile';
+import updateProfileImage from '../../helpers/APICalls/updateProfile';
 import { useSnackBar } from '../../context/useSnackbarContext';
 
 export default function ProfilePhoto(): JSX.Element {
@@ -20,9 +20,14 @@ export default function ProfilePhoto(): JSX.Element {
           updateSnackBarMessage(data.error.message);
         } else if (data.success) {
           const key: string = data.success.key;
-          updateProfile(key);
-          setProfileImage(`/images/${key}`);
-          updateSnackBarMessage('Image upload successful');
+          updateProfileImage(key).then((data) => {
+            if (data.error) {
+              updateSnackBarMessage(data.error.message);
+            } else if (data.success) {
+              setProfileImage(`/images/${key}`);
+              updateSnackBarMessage('Image upload successful');
+            }
+          });
         } else {
           updateSnackBarMessage('An unexpected error occurred. Please try again');
         }
