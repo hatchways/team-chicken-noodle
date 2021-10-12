@@ -18,11 +18,9 @@ const AuthMenu = (): JSX.Element => {
     setAnchorEl(event.currentTarget);
   };
 
-  //@TODO need to clean up the loggedInUser and up loggedInUser properly
   if (loggedInUser === undefined) return <CircularProgress />;
   if (!loggedInUser) {
     history.push('/login');
-    // loading for a split seconds until history.push works
     return <CircularProgress />;
   }
 
