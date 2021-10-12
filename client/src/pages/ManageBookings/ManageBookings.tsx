@@ -32,12 +32,10 @@ const ManageBookings = (): JSX.Element => {
 
   const nextBooking = requests
     .filter((request) => request.start.getTime() - new Date().getTime() > 0)
-    .reduce(
-      (request, closest) =>
-        closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
-          ? (closest = request)
-          : (closest = closest),
-      requests[0],
+    .reduce((request, closest) =>
+      closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+        ? request
+        : closest,
     );
   const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
 
@@ -68,38 +66,46 @@ const ManageBookings = (): JSX.Element => {
     return component;
   };
 
-  let currentBookings: (JSX.Element | undefined)[];
+  let currentBookings: JSX.Element;
   const currentBookingRequests = requests.filter(
     (request) => request.start > new Date() && request !== selectedBooking,
   );
   if (currentBookingRequests.length) {
-    currentBookings = currentBookingRequests.map((request) => (
-      <Booking
-        key={`${request.sitterId}${request.start.toString()}`}
-        status={request.status}
-        start={request.start}
-        end={request.end}
-        sitterId={request.sitterId}
-      />
-    ));
+    currentBookings = (
+      <>
+        {currentBookingRequests.map((request) => (
+          <Booking
+            key={`${request.sitterId}${request.start.toString()}`}
+            status={request.status}
+            start={request.start}
+            end={request.end}
+            sitterId={request.sitterId}
+          />
+        ))}
+      </>
+    );
   } else {
-    currentBookings = [<NoBooking key="noPastBooking" text="No current bookings found" />];
+    currentBookings = <NoBooking key="noPastBooking" text="No current bookings found" />;
   }
 
-  let pastBookings: (JSX.Element | undefined)[];
+  let pastBookings: JSX.Element;
   const pastBookingRequests = requests.filter((request) => request.start < new Date());
   if (pastBookingRequests.length) {
-    pastBookings = pastBookingRequests.map((request) => (
-      <Booking
-        key={`${request.sitterId}${request.start.toString()}`}
-        status={request.status}
-        start={request.start}
-        end={request.end}
-        sitterId={request.sitterId}
-      />
-    ));
+    pastBookings = (
+      <>
+        {pastBookingRequests.map((request) => (
+          <Booking
+            key={`${request.sitterId}${request.start.toString()}`}
+            status={request.status}
+            start={request.start}
+            end={request.end}
+            sitterId={request.sitterId}
+          />
+        ))}
+      </>
+    );
   } else {
-    pastBookings = [<NoBooking key="noPastBooking" text="No past bookings found" />];
+    pastBookings = <NoBooking key="noPastBooking" text="No past bookings found" />;
   }
 
   return (
