@@ -6,14 +6,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   label: {
-    fontSize: 19,
-    color: 'rgb(0,0,0,0.4)',
-    paddingLeft: '5px',
+    color: theme.palette.common.black,
+    fontWeight: 'bold',
   },
   inputs: {
-    marginTop: '.8rem',
-    height: '2rem',
-    padding: '5px',
+    lineHeight: '3rem',
+    height: '3rem',
+    width: '45ch',
+    boxSizing: 'border-box',
+  },
+  textField: {
+    marginTop: '1rem',
   },
   forgot: {
     paddingRight: 10,
@@ -27,7 +30,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     marginTop: 49,
     fontSize: 16,
-    backgroundColor: '#3a8dff',
+    fontWeight: 'bold',
+  },
+  bottomBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bottomText: {
+    display: 'inline',
+    paddingRight: '4px',
     fontWeight: 'bold',
   },
 }));
