@@ -1,23 +1,27 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core';
 
-interface StyleProps {
-  col: string;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   box: {
     flexGrow: 1,
   },
   appBar: {
-    backgroundColor: ({ col }) => col,
     height: 100,
+    backgroundColor: 'transparent',
+  },
+  appBarLoggedIn: {
+    height: 100,
+    backgroundColor: theme.palette.common.white,
   },
   toolBar: {
     height: '100%',
   },
   logo: {
     maxWidth: 180,
+  },
+  linkText: {
+    fontFamily: theme.typography.fontFamily,
+    marginRight: '2rem',
+    fontWeight: 'bolder',
   },
   menuBarText: {
     fontFamily: theme.typography.fontFamily,
