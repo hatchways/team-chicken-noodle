@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     maxWidth: 180,
   },
+  link: {
+    textDecoration: 'none',
+  },
   linkText: {
     fontFamily: theme.typography.fontFamily,
     marginRight: '2rem',
