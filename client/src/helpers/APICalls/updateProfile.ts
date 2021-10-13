@@ -1,7 +1,7 @@
 import { AuthApiData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-const uploadImage = async (key: string): Promise<AuthApiData> => {
+const updateProfile = async (key: string): Promise<AuthApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -15,4 +15,4 @@ const uploadImage = async (key: string): Promise<AuthApiData> => {
     }));
 };
 
-export default uploadImage;
+export default updateProfile;

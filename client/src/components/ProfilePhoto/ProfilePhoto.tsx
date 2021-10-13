@@ -5,7 +5,7 @@ import { Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import { DeleteForeverOutlined } from '@material-ui/icons';
 import uploadImage from '../../helpers/APICalls/uploadImage';
-import updateProfileImage from '../../helpers/APICalls/updateProfile';
+import updateProfile from '../../helpers/APICalls/updateProfile';
 import { useSnackBar } from '../../context/useSnackbarContext';
 interface ProfileImageKey {
   key: string;
@@ -80,7 +80,7 @@ export default function ProfilePhoto(): JSX.Element {
   }
 
   function handleUpdateProfileImage(key: string): void {
-    updateProfileImage(key).then((data) => {
+    updateProfile(key).then((data) => {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else {
