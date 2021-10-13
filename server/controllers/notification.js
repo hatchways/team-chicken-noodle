@@ -34,7 +34,7 @@ exports.getUnreadNotification = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.updateNotification = asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
-    const id = req.body.id
+    const id = req.params.id
     const updatedNotification = await Notification.findOneAndUpdate({ userId, _id:id }, { $set: req.body }, { new: true, runValidators: true });
     res.status(200).json({ message: 'Successfully updated the notification', updatedNotification });
 })

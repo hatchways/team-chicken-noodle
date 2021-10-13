@@ -6,7 +6,7 @@ const { createNotification, getAllNotification, getUnreadNotification, updateNot
 router.route("/create").post(protect, createNotification);
 router.route("/all").get(protect, getAllNotification);
 router.route("/").get(protect, getUnreadNotification);
-router.route("/").put(protect, updateNotification);
+router.route("/:id").put(protect, updateNotification);
 router.route("/read").put(protect, markAllNotificationRead);
 
 
