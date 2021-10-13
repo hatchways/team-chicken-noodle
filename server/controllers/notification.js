@@ -36,7 +36,7 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @route GET /notification/unread
+// @route POST /notification/unread
 // @desc get unread notification
 // @access Private
 exports.getUnreadNotification = asyncHandler(async (req, res, next) => {
