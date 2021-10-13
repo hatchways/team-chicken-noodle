@@ -10,6 +10,7 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import NavBar from './components/NavBar/NavBar';
 
 function App(): JSX.Element {
   return (
@@ -18,12 +19,11 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
+              <NavBar />
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
-                </ProtectedRoute>
+                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
