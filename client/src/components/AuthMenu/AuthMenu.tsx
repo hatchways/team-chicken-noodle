@@ -1,18 +1,28 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, Fragment } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useAuth } from '../../context/useAuthContext';
+import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { useHistory } from 'react-router-dom';
 
 const AuthMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { logout } = useAuth();
+  const { loggedInUser } = useAuth();
+  const history = useHistory();
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  if (loggedInUser === undefined) return <CircularProgress />;
+  if (!loggedInUser) {
+    history.push('/login');
+    return <CircularProgress />;
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -24,9 +34,9 @@ const AuthMenu = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <Fragment>
       <IconButton aria-label="show auth menu" aria-controls="auth-menu" aria-haspopup="true" onClick={handleClick}>
-        <MoreHorizIcon />
+        <AvatarDisplay loggedIn user={loggedInUser} />
       </IconButton>
       <Menu
         id="auth-menu"
@@ -40,9 +50,10 @@ const AuthMenu = (): JSX.Element => {
         }}
         getContentAnchorEl={null}
       >
+        <MenuItem>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-    </div>
+    </Fragment>
   );
 };
 
