@@ -34,7 +34,7 @@ exports.getUnreadNotification = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.updateNotification = asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
-    const id = req.params.id
+    const id = req.params.id;
     const updatedNotification = await Notification.findOneAndUpdate({ userId, _id:id }, { $set: req.body }, { new: true, runValidators: true });
     res.status(200).json({ message: 'Successfully updated the notification', updatedNotification });
 })
@@ -42,10 +42,11 @@ exports.updateNotification = asyncHandler(async (req, res, next) => {
 // @route PUT /notification/read
 // @desc make all notification read
 // @access Private
-exports.markAllNotificationRead = asyncHandler(async (req, res, next) => {
+exports.updateAllUnreadNotification = asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
-    const notificationMarkedRead = await Notification.updateMany({ userId , read: { $eq: false}}, { $set: { read: true } }, { new: true });
-    res.status(200).json({ message: 'Successfully updated the notification', notificationMarkedRead });
+    const update = req.body;
+    const numberOfNotificationUpdated = await Notification.updateMany({ userId, read: false}, { $set: update }, { new: true });
+    res.status(200).json({ message: 'Successfully updated the notification', numberOfNotificationUpdated });
 })
 
 
