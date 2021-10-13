@@ -29,7 +29,7 @@ exports.getUnreadNotification = asyncHandler(async (req, res, next) => {
     res.status(200).json({ message: 'Successful in getting unread notifications', unreadNotifications})
 })
 
-// @route PUT /notification
+// @route PUT /notification/:id
 // @desc update a notification
 // @access Private
 exports.updateNotification = asyncHandler(async (req, res, next) => {
@@ -39,8 +39,8 @@ exports.updateNotification = asyncHandler(async (req, res, next) => {
     res.status(200).json({ message: 'Successfully updated the notification', updatedNotification });
 })
 
-// @route PUT /notification/read
-// @desc make all notification read
+// @route PUT /notification/
+// @desc update all unread notification of a user
 // @access Private
 exports.updateAllUnreadNotification = asyncHandler(async (req, res, next) => {
     const userId = req.user.id;
