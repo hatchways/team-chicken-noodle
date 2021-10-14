@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignContent: 'center',
     minHeight: '25rem',
-    width: '20rem',
+    width: '22rem',
   },
   avatar: {
     margin: '2rem auto 1rem auto',
