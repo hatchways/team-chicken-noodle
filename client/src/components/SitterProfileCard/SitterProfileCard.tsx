@@ -5,25 +5,46 @@ import useStyles from './useStyles';
 import { LocationOn } from '@material-ui/icons';
 import PriceTag from '../PriceTag/PriceTag';
 
-export default function SitterProfileCard(): JSX.Element {
+export interface SitterProfile {
+  id?: string;
+  sitterName: string;
+  sitterProfileImage: string;
+  shortDescription: string;
+  description: string;
+  location: string;
+  price: number;
+  rating: number | null;
+}
+
+export default function SitterProfileCard({
+  sitterName,
+  sitterProfileImage,
+  shortDescription,
+  description,
+  location,
+  price,
+  rating,
+}: SitterProfile): JSX.Element {
   const classes = useStyles();
   return (
     <Grid container elevation={4} direction="column" component={Paper} className={classes.root}>
       <Grid item>
-        <Avatar className={classes.avatar}>P</Avatar>
+        <Avatar src={sitterProfileImage} className={classes.avatar}>
+          P
+        </Avatar>
 
         <Typography align="center" variant="h5" color="textPrimary">
-          Sitter Name
+          {sitterName}
         </Typography>
         <Typography align="center" variant="subtitle2" color="textSecondary">
-          Short description
+          {shortDescription}
         </Typography>
       </Grid>
       <Grid item>
-        <Rating className={classes.rating} name="read-only" value={3}></Rating>
+        <Rating className={classes.rating} name="read-only" value={rating}></Rating>
       </Grid>
       <Typography className={classes.description} align="center" variant="h6" color="textPrimary">
-        This will be the description of the sitter.
+        {description}
       </Typography>
       <hr className={classes.horizontalLine}></hr>
       <Grid item container className={classes.bottomContainer}>
@@ -31,10 +52,10 @@ export default function SitterProfileCard(): JSX.Element {
           <LocationOn color="secondary" />
         </Grid>
         <Grid item xs={7}>
-          <Typography color="textSecondary">Toronto, Ontario</Typography>
+          <Typography color="textSecondary">{location}</Typography>
         </Grid>
         <Grid item xs={3}>
-          <PriceTag amount={15} size="medium" />
+          <PriceTag amount={price} size="medium" />
         </Grid>
       </Grid>
     </Grid>
