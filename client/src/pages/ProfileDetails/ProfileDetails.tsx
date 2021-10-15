@@ -1,22 +1,9 @@
-import {
-  Grid,
-  Avatar,
-  Paper,
-  Typography,
-  Container,
-  Button,
-  TextareaAutosize,
-  TextField,
-  Box,
-} from '@material-ui/core';
+import { Grid, Avatar, Paper, Typography, Container, Button, TextField, Box } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import useStyles from './useStyles';
 import { LocationOn, Create, Close } from '@material-ui/icons';
-import PriceTag from '../../components/PriceTag/PriceTag';
-import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
-import SelectTime from '../../components/Pickers/SelectTime/SelectTime';
 import RequestCard from '../../components/RequestCard/RequestCard';
-import { Dispatch, SetStateAction, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 
 export default function ProfileDetails(): JSX.Element {
   const classes = useStyles();

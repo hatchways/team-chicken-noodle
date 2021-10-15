@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '4rem',
     marginBottom: '10rem',
     minWidth: '70rem',
+    fontFamily: theme.typography.fontFamily,
   },
   profileContainer: {
     alignItems: 'center',

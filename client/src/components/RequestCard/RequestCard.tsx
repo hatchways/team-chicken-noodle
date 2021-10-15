@@ -1,4 +1,4 @@
-import { Grid, Paper, Container, Button } from '@material-ui/core';
+import { Grid, Paper, Button } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import useStyles from './useStyles';
 import PriceTag from '../../components/PriceTag/PriceTag';
