@@ -69,7 +69,7 @@ export default function NavBar(): JSX.Element {
                       </Badge>
                     </Button>
                   </NavLink>
-                  <NavLink to="/dashboard" className={classes.link}>
+                  <NavLink to="/manage-bookings" className={classes.link}>
                     <Button className={classes.menuBarButton}>
                       <Typography variant="h6" color="textPrimary" className={classes.menuBarText}>
                         My Jobs

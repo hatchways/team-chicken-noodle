@@ -10,6 +10,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import theme from './datePickerTheme';
+import { MuiThemeProvider } from '@material-ui/core';
+
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
@@ -140,16 +143,18 @@ const ManageBookings = (): JSX.Element => {
       <Grid container xs={6} className={classes.calendarGrid}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Paper>
-            <DatePicker
-              autoOk
-              disableToolbar
-              disablePast
-              variant="static"
-              openTo="date"
-              value={date}
-              onChange={handleDateChange}
-              renderDay={renderDay}
-            />
+            <MuiThemeProvider theme={theme}>
+              <DatePicker
+                autoOk
+                disableToolbar
+                disablePast
+                variant="static"
+                openTo="date"
+                value={date}
+                onChange={handleDateChange}
+                renderDay={renderDay}
+              />
+            </MuiThemeProvider>
           </Paper>
         </MuiPickersUtilsProvider>
       </Grid>
