@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { SearchContext } from '../../context/useSearchSitterContext';
 import { searchSitter } from '../../helpers/APICalls/searchSitter';
 import { IProfile } from '../../interface/Profile';
+import { NavLink } from 'react-router-dom';
 
 export default function Listing(): JSX.Element {
   const classes = useStyles();
@@ -55,14 +56,16 @@ export default function Listing(): JSX.Element {
           {dummyData ? (
             dummyData.map((data) => (
               <Grid key={data._id} item>
-                <SitterProfileCard
-                  address={data.address}
-                  firstName={data.firstName}
-                  lastName={data.lastName}
-                  profilePhoto={data.profilePhoto}
-                  description={data.description}
-                  shortDescription={data.shortDescription}
-                />
+                <NavLink to={`/profile/${data._id}`} className={classes.link}>
+                  <SitterProfileCard
+                    address={data.address}
+                    firstName={data.firstName}
+                    lastName={data.lastName}
+                    profilePhoto={data.profilePhoto}
+                    description={data.description}
+                    shortDescription={data.shortDescription}
+                  />
+                </NavLink>
               </Grid>
             ))
           ) : (
