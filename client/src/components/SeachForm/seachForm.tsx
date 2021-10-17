@@ -1,13 +1,9 @@
-import { TextField, InputAdornment, Button, Grid } from '@material-ui/core';
+import { TextField, InputAdornment, Button } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
 import useStyles from './useStyles';
 import { LocationOn } from '@material-ui/icons';
-import { CircularProgress, InputLabel } from '@material-ui/core';
-import { Label } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
-import { Fragment } from 'react';
 
 interface Props {
   handleSubmit: (
@@ -48,7 +44,7 @@ const SearchForm = ({ handleSubmit }: Props): JSX.Element => {
       })}
       onSubmit={handleSubmit}
     >
-      {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
+      {({ handleSubmit, handleChange, values, touched, errors }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="location"
