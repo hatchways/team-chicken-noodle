@@ -1,6 +1,5 @@
-import { Grid, Box, Avatar, Paper, Typography } from '@material-ui/core';
+import { Grid, Avatar, Paper, Typography } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
-import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
 import useStyles from './useStyles';
 import { LocationOn } from '@material-ui/icons';
 import PriceTag from '../PriceTag/PriceTag';

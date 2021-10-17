@@ -6,9 +6,23 @@ import SitterProfileCard, { SitterProfile } from '../../components/SitterProfile
 import useStyles from './useStyle';
 import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
 import { LocationOn } from '@material-ui/icons';
+import SearchForm from '../../components/SeachForm/seachForm';
+import { FormikHelpers } from 'formik';
+
+interface SearchData {
+  location: string;
+  dropIn: string;
+  dropOut: string;
+}
 export default function Listing(): JSX.Element {
-  const { initSocket } = useSocket();
   const classes = useStyles();
+  const handleSubmit = (
+    { location, dropIn, dropOut }: { location: string; dropIn: Date; dropOut: Date },
+    { setSubmitting }: FormikHelpers<{ location: string; dropIn: Date; dropOut: Date }>,
+  ) => {
+    console.log(location, dropIn, dropOut);
+  };
+
   const dummyData: SitterProfile[] = [
     {
       shortDescription: 'this is short description',
@@ -57,9 +71,6 @@ export default function Listing(): JSX.Element {
     },
   ];
 
-  useEffect(() => {
-    initSocket();
-  }, [initSocket]);
   return (
     <Grid container>
       <Grid container spacing={4} item className={classes.searchBar}>
@@ -69,24 +80,8 @@ export default function Listing(): JSX.Element {
           </Typography>
         </Grid>
         <Grid item>
-          <TextField
-            className={classes.searchText}
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocationOn color="secondary" />
-                </InputAdornment>
-              ),
-            }}
-            value="Toronto"
-          />
-          <SelectDate label="Drop In" />
-          <SelectDate label="Drop Out" />
+          <SearchForm handleSubmit={handleSubmit} />
         </Grid>
-        <Button size="small" variant="text" color="secondary" className={classes.resetButton}>
-          Reset
-        </Button>
       </Grid>
 
       <Grid container className={classes.root}>

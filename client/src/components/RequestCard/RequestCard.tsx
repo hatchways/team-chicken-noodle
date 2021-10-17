@@ -4,9 +4,15 @@ import useStyles from './useStyles';
 import PriceTag from '../../components/PriceTag/PriceTag';
 import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
 import SelectTime from '../../components/Pickers/SelectTime/SelectTime';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export default function RequestCard(): JSX.Element {
   const classes = useStyles();
+
+  const handleChange = (date: MaterialUiPickersDate): void => {
+    console.log(date);
+  };
+
   return (
     <Grid
       container
@@ -26,11 +32,11 @@ export default function RequestCard(): JSX.Element {
           <Rating name="read-only" value={3}></Rating>
         </Grid>
         <Grid item>
-          <SelectDate label="Drop In" />
+          <SelectDate label="Drop In" name="dropOut" />
           <SelectTime label="Time" />
         </Grid>
         <Grid item>
-          <SelectDate label="Drop Out" />
+          <SelectDate label="Drop In" name="dropOut" />
           <SelectTime label="Time" />
         </Grid>
         <Grid item>
