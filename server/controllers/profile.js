@@ -1,5 +1,5 @@
-const Profile = require('../models/Profile');
-const asyncHandler = require('express-async-handler');
+const Profile = require("../models/Profile");
+const asyncHandler = require("express-async-handler");
 
 // @route POST /profile/create
 // @desc create a profile
@@ -10,7 +10,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   const profileExists = await Profile.findOne({ userId: userId });
   if (profileExists) {
     res.status(400);
-    throw new Error('A user profile already registered');
+    throw new Error("A user profile already registered");
   }
 
   const {
@@ -41,13 +41,17 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   res.status(201).json({ profile });
 });
 
-// @route GET /profile/
+// @route Post /profile/profiles
 // @desc find all profiles
 // @access Private
 exports.findAllProfiles = asyncHandler(async (req, res, next) => {
-  const profiles = await Profile.find();
-
-  res.status(200).json({ profiles });
+  const { location, dropIn, dropOut } = req.body;
+  console.log(req.body);
+  const profiles = await Profile.find({
+    $and: [{ isAvailable: true }, { "address.city": location }],
+  });
+  console.log(profiles);
+  res.status(200).json({ success: profiles });
 });
 
 // @route GET /profile/:id
@@ -58,7 +62,7 @@ exports.findProfileById = asyncHandler(async (req, res, next) => {
 
   const profile = await Profile.findOne({ userId: id });
 
-  res.status(200).json({ profile });
+  res.status(200).json({ success: profile });
 });
 
 // @route PUT /profile/update

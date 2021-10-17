@@ -1,42 +1,14 @@
 import { useReducer, createContext, ReactNode } from 'react';
+import { IProfile } from '../interface/Profile';
 import { SitterSearchAction, reducer } from '../reducer/searchReducer';
 
-interface Address {
-  city: string;
-  province: string;
-  country: string;
+export interface SitterSearchResult {
+  result: IProfile[];
 }
-
-interface Availability {
-  days: {
-    Monday: boolean;
-    Tuesday: boolean;
-    Wednesday: boolean;
-    Thursday: boolean;
-    Friday: boolean;
-    Saturday: boolean;
-    Sunday: boolean;
-  };
-  hours: {
-    end: string;
-    start: string;
-  };
-}
-
-interface IProfile {
-  sitterId: string;
-  firstName: string;
-  lastName: string;
-  isAvailable: boolean;
-  profilePhoto?: string;
-  description?: string;
-  gender?: string;
-  birthDate?: Date;
-  shortDescription?: string;
-  phoneNumber?: number;
-  address?: Address;
-  bioImage?: [string];
-  availability?: Availability;
+export interface SitterSearchParams {
+  location: string;
+  dropIn: Date;
+  dropOut: Date;
 }
 
 export interface ISearchSitter {
