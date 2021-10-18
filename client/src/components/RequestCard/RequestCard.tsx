@@ -51,20 +51,20 @@ export default function RequestCard(): JSX.Element {
         >
           {({ handleSubmit, values, touched, errors }) => (
             <form onSubmit={handleSubmit} noValidate className={classes.form}>
-              <Grid item>
+              <Grid item className={classes.requestDate}>
                 <SelectDate label="Drop In" name="dropIn" />
                 <SelectTime label="Time" name="dropInTime" />
               </Grid>
-              <Grid item>
+              <Grid item className={classes.requestDate}>
                 <SelectDate label="Drop Out" name="dropOut" />
                 <SelectTime label="Time" name="dropOutTime" />
               </Grid>
-              <Grid item>
+              <Grid item className={classes.cardButtons}>
                 <Button type="submit" variant="contained" color="secondary">
                   Send Request
                 </Button>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.cardButtons}>
                 <Button variant="contained" color="secondary">
                   Message
                 </Button>
