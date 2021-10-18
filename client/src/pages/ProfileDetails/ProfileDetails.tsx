@@ -125,7 +125,7 @@ export default function ProfileDetails(): JSX.Element {
               </Fragment>
             )}
           </Grid>
-          {/* <RequestCard /> */}
+          <RequestCard />
         </Container>
       ) : (
         <Fragment></Fragment>
