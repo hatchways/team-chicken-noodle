@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   profileContainer: {
     alignItems: 'center',
     padding: '4rem 4rem',
-    minHeight: '70vh',
     margin: 'auto',
   },
   avatar: {

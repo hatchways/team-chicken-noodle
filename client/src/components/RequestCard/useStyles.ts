@@ -26,6 +26,12 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     display: 'contents',
   },
+  requestDate: {
+    padding: '10px',
+  },
+  cardButtons: {
+    padding: '10px',
+  },
 }));
 
 export default useStyles;
