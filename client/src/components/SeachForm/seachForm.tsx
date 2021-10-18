@@ -40,7 +40,7 @@ const SearchForm = ({ handleSubmit }: Props): JSX.Element => {
       validationSchema={Yup.object().shape({
         location: Yup.string().required('Location is required').max(40, 'Location is too long'),
         dropIn: Yup.date().required('DropIn date is required'),
-        dropOut: Yup.date().required('DropIn date is required'),
+        dropOut: Yup.date().required('DropOut date is required'),
       })}
       onSubmit={handleSubmit}
     >

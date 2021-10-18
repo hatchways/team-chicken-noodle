@@ -12,8 +12,8 @@ export default function RequestCard(): JSX.Element {
   const handleSubmit = (
     { dropIn, dropOut, dropInTime, dropOutTime }: { dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date },
     { setSubmitting }: FormikHelpers<{ dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date }>,
-  ) => {
-    console.log(dropIn, dropOut, dropInTime, dropOutTime);
+  ): void => {
+    //@TODO handle request api call
   };
 
   return (

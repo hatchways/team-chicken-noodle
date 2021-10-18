@@ -89,9 +89,7 @@ export default function ProfileDetails(): JSX.Element {
                 )}
               </Grid>
             </Grid>
-            {!isReviewOpen ? (
-              <Fragment></Fragment>
-            ) : (
+            {!!isReviewOpen && (
               <Fragment>
                 <Grid item className={classes.userBox}>
                   <Grid item>
