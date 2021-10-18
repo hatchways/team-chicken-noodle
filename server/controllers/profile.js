@@ -46,11 +46,9 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.findAllProfiles = asyncHandler(async (req, res, next) => {
   const { location, dropIn, dropOut } = req.body;
-  console.log(req.body);
   const profiles = await Profile.find({
     $and: [{ isAvailable: true }, { "address.city": location }],
   });
-  console.log(profiles);
   res.status(200).json({ success: profiles });
 });
 
