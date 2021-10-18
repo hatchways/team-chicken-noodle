@@ -4,12 +4,12 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import useStyles from './useStyles';
 import { useField, useFormikContext } from 'formik';
 
-interface DateIn {
+interface IDate {
   label: string;
   name: string;
 }
 
-export default function SelectDate(props: DateIn): JSX.Element {
+export default function SelectDate(props: IDate): JSX.Element {
   const classes = useStyles();
   const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
