@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import SitterProfileCard, { SitterProfile } from '../../components/SitterProfileCard/SitterProfileCard';
 import useStyles from './useStyle';
-import SelectDate from '../../components/SelectDate/SelectDate';
+import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
 import { LocationOn } from '@material-ui/icons';
 export default function Listing(): JSX.Element {
   const { initSocket } = useSocket();
