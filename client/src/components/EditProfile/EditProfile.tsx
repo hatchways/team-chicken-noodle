@@ -45,7 +45,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>First name</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container xs={8}>
                   <Input
                     id="firstName"
                     placeholder="First name"
@@ -61,7 +61,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>Last name</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container xs={8}>
                   <Input
                     id="lastName"
                     value={formik.values.lastName}
@@ -77,8 +77,8 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>Gender</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
-                  <FormControl className={classes.input}>
+                <Grid container xs={8}>
+                  <FormControl className={classes.input} style={{ width: 'auto' }}>
                     <NativeSelect id="gender" value={formik.values.gender} onChange={formik.handleChange}>
                       <option value={'male'}>Male</option>
                       <option value={'female'}>Female</option>
@@ -96,9 +96,8 @@ const EditProfile = (props: Profile): JSX.Element => {
                   <Grid item xs={3}>
                     <InputLabel className={classes.profileProp}>birth date</InputLabel>
                   </Grid>
-                  <Grid item xs={8}>
+                  <Grid container xs={8}>
                     <KeyboardDatePicker
-                      disableToolbar
                       fullWidth
                       variant="inline"
                       format="MM/dd/yyyy"
@@ -117,7 +116,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>email</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container xs={8}>
                   <Input
                     id="email"
                     placeholder="Email"
@@ -133,7 +132,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>Phone number</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container xs={8} className={classes.inputContainer}>
                   <Input
                     id="phoneNumber"
                     placeholder="Phone number"
@@ -149,7 +148,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>Where you live</InputLabel>
                 </Grid>
-                <Grid container xs={8} direction="column">
+                <Grid container xs={8} direction="column" className={classes.inputContainer}>
                   <Grid item>
                     <Input
                       id="address.city"
@@ -185,7 +184,7 @@ const EditProfile = (props: Profile): JSX.Element => {
                 <Grid item xs={3}>
                   <InputLabel className={classes.profileProp}>Describe yourself</InputLabel>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid container xs={8}>
                   <Input
                     id="description"
                     multiline
@@ -199,7 +198,7 @@ const EditProfile = (props: Profile): JSX.Element => {
               </Grid>
             </Grid>
             <Grid container className={classes.save}>
-              <Button color="secondary" variant="contained" type="submit">
+              <Button color="secondary" variant="contained" className={classes.saveButton} type="submit">
                 Save
               </Button>
             </Grid>

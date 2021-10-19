@@ -6,6 +6,7 @@ const useStyles = makeStyles(() => ({
   },
   form: {
     width: '100%',
+    padding: '0px 50px',
   },
   title: {
     textAlign: 'center',
@@ -19,20 +20,26 @@ const useStyles = makeStyles(() => ({
   },
   row: {
     alignItems: 'center',
-    margin: 10,
+    margin: 20,
     textAlign: 'right',
   },
   profilePropLabel: {
     width: '30%',
   },
+  inputContainer: {
+    alignItems: 'flex-start',
+  },
   input: {
     border: '1px solid #e3e3e3',
     borderRadius: '5px',
-    padding: '5px',
+    padding: '10px',
     width: '100%',
   },
   save: {
     justifyContent: 'center',
+  },
+  saveButton: {
+    margin: '20px',
   },
 }));
 
