@@ -27,15 +27,20 @@ exports.requestCreate = asyncHandler(async (req, res, next) => {
 });
 
 exports.makePaymentIntent = asyncHandler(async (req, res, next) => {
-  console.log(process.env.STRIPE_SECRET_KEY);
-  const { amount } = req.body;
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount,
-    currency: "cad",
-  });
-  res.status(200).json({
-    success: { clientSecret: paymentIntent.client_secret },
-  });
+  try {
+    const { amount } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: "cad",
+    });
+    res.status(200).json({
+      success: { clientSecret: paymentIntent.client_secret },
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: { message: error.message },
+    });
+  }
 });
 
 exports.requestUpdate = asyncHandler(async (req, res, next) => {
