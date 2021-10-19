@@ -7,7 +7,8 @@ interface tempInterface {
 const useStyles = makeStyles(() => ({
   root: {
     margin: 10,
-    border: '1px solid #f3f3f3',
+    border: (props: tempInterface) => (props.isNextBooking ? '' : '1px solid #f3f3f3'),
+    borderRadius: 5,
   },
   leftColumn: {
     justifyContent: 'flex-start',
@@ -40,9 +41,11 @@ const useStyles = makeStyles(() => ({
   timeGrid: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingLeft: 10,
   },
   timeLabel: {
     fontSize: (props: tempInterface) => (props.isNextBooking ? 18 : 16),
+    fontWeight: 'bold',
   },
   statusBar: {
     justifyContent: 'flex-start',

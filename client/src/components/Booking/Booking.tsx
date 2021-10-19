@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, MenuItem, IconButton, Grid, Paper, Typography, Avatar } from '@material-ui/core';
+import { Menu, MenuItem, IconButton, Grid, Box, Typography, Avatar } from '@material-ui/core';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -28,7 +28,7 @@ const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest
   const time = `${day} ${month} ${year}, ${startTime}-${endTime}`;
 
   return (
-    <Paper className={classes.root}>
+    <Box boxShadow={2} className={classes.root}>
       <Grid container spacing={1} direction="row">
         <Grid container xs={9} direction="column" className={classes.leftColumn}>
           <Grid className={classes.timeGrid}>
@@ -60,7 +60,7 @@ const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest
           </Grid>
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   );
 };
 

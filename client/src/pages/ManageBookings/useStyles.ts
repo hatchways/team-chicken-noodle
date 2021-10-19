@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles((theme: { palette: { secondary: { main?: string } } }) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: 20,
     paddingTop: 50,
@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme: { palette: { secondary: { main?: string } }
   },
   bookingPaper: {
     padding: 5,
-    marginBottom: 10,
-    width: '60%',
+    marginBottom: 30,
+    width: '80%',
   },
   selectedBooking: {
     padding: 7,
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: { palette: { secondary: { main?: string } }
     width: '100%',
   },
   upcomingBookingCircle: {
+    margin: '0px 15px',
     width: '35px',
     height: '35px',
     backgroundColor: theme.palette.secondary.main,

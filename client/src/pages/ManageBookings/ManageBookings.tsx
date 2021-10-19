@@ -49,9 +49,7 @@ const ManageBookings = (): JSX.Element => {
       day &&
       Intl.DateTimeFormat('en').format(nextBooking.start) ===
         Intl.DateTimeFormat('en').format(new Date(day.toString())) ? (
-        <Avatar style={{ margin: '0px 15px' }} className={classes.upcomingBookingCircle}>
-          {dayCompmonent}
-        </Avatar>
+        <Avatar className={classes.upcomingBookingCircle}>{dayCompmonent}</Avatar>
       ) : (
         <span>{dayCompmonent}</span>
       );
