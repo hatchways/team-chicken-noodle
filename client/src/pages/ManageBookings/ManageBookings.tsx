@@ -8,25 +8,11 @@ import { Grid, Paper, Typography, Avatar, Container, Box } from '@material-ui/co
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import theme from './datePickerTheme';
-import { MuiThemeProvider } from '@material-ui/core';
-
-import { useAuth } from '../../context/useAuthContext';
-import { useSocket } from '../../context/useSocketContext';
-import { useHistory } from 'react-router-dom';
 
 import useStyles from './useStyles';
 
 const ManageBookings = (): JSX.Element => {
-  const { initSocket } = useSocket();
-
   const classes = useStyles();
-
-  useEffect(() => {
-    initSocket();
-  }, [initSocket]);
 
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
   const [isSelectedDate, setIsSelectedDate] = useState<boolean>(false);
@@ -40,6 +26,7 @@ const ManageBookings = (): JSX.Element => {
         ? request
         : closest,
     );
+  nextBooking.isNextBooking = true;
   const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
 
   const handleDateChange = (e: MaterialUiPickersDate) => {
@@ -62,7 +49,9 @@ const ManageBookings = (): JSX.Element => {
       day &&
       Intl.DateTimeFormat('en').format(nextBooking.start) ===
         Intl.DateTimeFormat('en').format(new Date(day.toString())) ? (
-        <Avatar className={classes.upcomingBookingCircle}>{dayCompmonent}</Avatar>
+        <Avatar style={{ margin: '0px 15px' }} className={classes.upcomingBookingCircle}>
+          {dayCompmonent}
+        </Avatar>
       ) : (
         <span>{dayCompmonent}</span>
       );
@@ -124,6 +113,7 @@ const ManageBookings = (): JSX.Element => {
               start={selectedBooking.start}
               end={selectedBooking.end}
               sitterId={selectedBooking.sitterId}
+              isNextBooking={selectedBooking.isNextBooking}
             />
           )) || <NoBooking text="No bookings for selected date" />}
         </Paper>
@@ -143,18 +133,16 @@ const ManageBookings = (): JSX.Element => {
       <Grid container xs={6} className={classes.calendarGrid}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Paper>
-            <MuiThemeProvider theme={theme}>
-              <DatePicker
-                autoOk
-                disableToolbar
-                disablePast
-                variant="static"
-                openTo="date"
-                value={date}
-                onChange={handleDateChange}
-                renderDay={renderDay}
-              />
-            </MuiThemeProvider>
+            <DatePicker
+              autoOk
+              disableToolbar
+              disablePast
+              variant="static"
+              openTo="date"
+              value={date}
+              onChange={handleDateChange}
+              renderDay={renderDay}
+            />
           </Paper>
         </MuiPickersUtilsProvider>
       </Grid>

@@ -25,7 +25,7 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                <ProtectedRoute exact path="/manage-bookings"  component={ManageBookings} />
+                <ProtectedRoute exact path="/manage-bookings" component={ManageBookings} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>

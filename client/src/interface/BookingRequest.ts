@@ -3,4 +3,5 @@ export interface BookingRequest {
   sitterId: string;
   start: Date;
   end: Date;
+  isNextBooking?: boolean;
 }

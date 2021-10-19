@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: { palette: { secondary: { main?: string } } }) => ({
   root: {
     padding: 20,
+    paddingTop: 50,
   },
   bookingsPart: {
     justifyContent: 'center',
@@ -26,8 +27,8 @@ const useStyles = makeStyles({
   upcomingBookingCircle: {
     width: '35px',
     height: '35px',
-    backgroundColor: '#ff5630',
+    backgroundColor: theme.palette.secondary.main,
   },
-});
+}));
 
 export default useStyles;
