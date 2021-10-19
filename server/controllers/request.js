@@ -1,5 +1,6 @@
 const Request = require("../models/Request");
 const asyncHandler = require("express-async-handler");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.requestList = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
@@ -11,7 +12,7 @@ exports.requestList = asyncHandler(async (req, res, next) => {
 exports.requestCreate = asyncHandler(async (req, res, next) => {
   const { sitterId, start, end } = req.body;
   const userId = req.user.id;
-  
+
   const request = await Request.create({
     userId,
     sitterId,
@@ -20,8 +21,20 @@ exports.requestCreate = asyncHandler(async (req, res, next) => {
   });
 
   res.status(200).json({
-    message: 'request created',
+    message: "request created",
     request: request,
+  });
+});
+
+exports.makePaymentIntent = asyncHandler(async (req, res, next) => {
+  console.log(process.env.STRIPE_SECRET_KEY);
+  const { amount } = req.body;
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "cad",
+  });
+  res.status(200).json({
+    success: { clientSecret: paymentIntent.client_secret },
   });
 });
 
@@ -29,12 +42,12 @@ exports.requestUpdate = asyncHandler(async (req, res, next) => {
   const { status } = req.body;
   const { id } = req.params;
 
-  const request = await Request.findById( id );
+  const request = await Request.findById(id);
   request.status = status;
   await request.save();
 
-  res.status(201).json({ 
-    message: 'request updated',
-    request: request
+  res.status(201).json({
+    message: "request updated",
+    request: request,
   });
 });

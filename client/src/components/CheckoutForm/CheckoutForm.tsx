@@ -39,7 +39,8 @@ const CheckoutForm = (): JSX.Element => {
       },
     });
 
-    const paymentIndent = await getPaymentIntent(4000);
+    // @TODO replace `request id` with actual id of the request
+    const paymentIndent = await getPaymentIntent(4000, 'request id');
     if (paymentIndent.success) {
       const confirmedCardPayment = await stripe?.confirmCardPayment(paymentIndent.success.clientSecret, {
         payment_method: paymentMethodReq?.paymentMethod?.id,
