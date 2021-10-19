@@ -4,14 +4,12 @@ import useStyles from './useStyles';
 import { Paper } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider, TimePicker } from '@material-ui/pickers';
-import SelectDate from '../Pickers/SelectDate/SelectDate';
-import SelectTime from '../Pickers/SelectTime/SelectTime';
 import { useState } from 'react';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export default function Summary(): JSX.Element {
-  const handleChange = () => {
-    //handle
-  };
+  const [pickerDate, setDate] = useState<MaterialUiPickersDate>(new Date());
+
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -50,22 +48,22 @@ export default function Summary(): JSX.Element {
                 inputVariant="outlined"
                 label="Drop In"
                 format="MMMM dd"
-                value={new Date()}
+                value={pickerDate}
                 disablePast
                 readOnly
                 className={classes.date}
-                onChange={handleChange}
+                onChange={(newDate: MaterialUiPickersDate) => setDate(newDate)}
               />
             </MuiPickersUtilsProvider>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <TimePicker
                 inputVariant="outlined"
                 ampm={true}
-                value={new Date()}
+                value={pickerDate}
                 label="Time"
                 readOnly
                 className={classes.date}
-                onChange={handleChange}
+                onChange={(newDate: MaterialUiPickersDate) => setDate(newDate)}
               />
             </MuiPickersUtilsProvider>
           </Grid>
@@ -75,22 +73,22 @@ export default function Summary(): JSX.Element {
                 inputVariant="outlined"
                 label="Drop Out"
                 format="MMMM dd"
-                value={new Date()}
+                value={pickerDate}
                 disablePast
                 readOnly
                 className={classes.date}
-                onChange={handleChange}
+                onChange={(newDate: MaterialUiPickersDate) => setDate(newDate)}
               />
             </MuiPickersUtilsProvider>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <TimePicker
                 inputVariant="outlined"
                 ampm={true}
-                value={new Date()}
+                value={pickerDate}
                 label="Time"
                 readOnly
                 className={classes.date}
-                onChange={handleChange}
+                onChange={(newDate: MaterialUiPickersDate) => setDate(newDate)}
               />
             </MuiPickersUtilsProvider>
           </Grid>
