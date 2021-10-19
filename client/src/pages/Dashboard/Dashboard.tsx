@@ -1,6 +1,8 @@
-import { Grid, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useSocket } from '../../context/useSocketContext';
 import { useEffect } from 'react';
+import Listing from '../Listing/Listing';
+
 export default function Dashboard(): JSX.Element {
   const { initSocket } = useSocket();
 
@@ -8,8 +10,8 @@ export default function Dashboard(): JSX.Element {
     initSocket();
   }, [initSocket]);
   return (
-    <Grid container>
-      <Box color="primary"></Box>
+    <Grid>
+      <Listing />
     </Grid>
   );
 }
