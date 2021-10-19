@@ -28,6 +28,11 @@ const AuthMenu = (): JSX.Element => {
     setAnchorEl(null);
   };
 
+  const handleProfile = () => {
+    history.push('/profile');
+    return <CircularProgress />;
+  };
+
   const handleLogout = () => {
     handleClose();
     logout();
@@ -50,7 +55,7 @@ const AuthMenu = (): JSX.Element => {
         }}
         getContentAnchorEl={null}
       >
-        <MenuItem>Profile</MenuItem>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </Fragment>
