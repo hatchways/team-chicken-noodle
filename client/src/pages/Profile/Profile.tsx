@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import EditProfile from '../../components/EditProfile/EditProfile';
+//import EditProfile from '../../components/EditProfile/EditProfile';
 import ProfilePhoto from '../../components/ProfilePhoto/ProfilePhoto';
 
 interface TabPanelProps {
@@ -87,7 +87,7 @@ const Profile = (): JSX.Element => {
       </Grid>
       <Grid item xs={7}>
         <TabPanel value={value} index={0}>
-          <EditProfile userId={'0'} />
+          {"<EditProfile userId={'0'} />"}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ProfilePhoto />
