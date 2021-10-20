@@ -7,6 +7,14 @@ const notificationSchema = new mongoose.Schema(
       required: true,
       ref: "user",
     },
+    from: {
+      name: {
+        type: String,
+      },
+      profileImage: {
+        type: String,
+      },
+    },
     type: {
       type: String,
       enum: ["request", "accept", "decline"],
