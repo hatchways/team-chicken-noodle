@@ -43,15 +43,15 @@ const ManageBookings = (): JSX.Element => {
     day: MaterialUiPickersDate,
     selectedDate: MaterialUiPickersDate,
     dayInCurrentMonth: boolean,
-    dayCompmonent: JSX.Element,
+    dayComponent: JSX.Element,
   ) => {
     const component =
       day &&
       Intl.DateTimeFormat('en').format(nextBooking.start) ===
         Intl.DateTimeFormat('en').format(new Date(day.toString())) ? (
-        <Avatar className={classes.upcomingBookingCircle}>{dayCompmonent}</Avatar>
+        <Avatar className={classes.upcomingBookingCircle}>{dayComponent}</Avatar>
       ) : (
-        <span>{dayCompmonent}</span>
+        <span>{dayComponent}</span>
       );
     return component;
   };
