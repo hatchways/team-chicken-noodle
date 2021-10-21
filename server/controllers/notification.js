@@ -32,7 +32,7 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
   const notifications = await Notification.find({ userId: userId });
   res.status(200).json({
     message: "Successful in getting all notifications",
-    notifications,
+    success: notifications,
   });
 });
 
@@ -47,7 +47,7 @@ exports.getUnreadNotification = asyncHandler(async (req, res, next) => {
   });
   res.status(200).json({
     message: "Successful in getting unread notifications",
-    unreadNotifications,
+    success: unreadNotifications,
   });
 });
 

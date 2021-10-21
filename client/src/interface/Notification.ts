@@ -1,19 +1,19 @@
 export interface Notification {
   userId: string;
-  from?: {
-    name: string;
-    profileImage: string;
-  };
+  _id: string;
   type?: string;
   title?: string;
   description?: string;
   read: boolean;
-  cratedAt: Date;
+  createdAt: Date;
   updatedAt: Date;
-  context?: string;
+  context?: {
+    name: string;
+    profileImage: string;
+  };
 }
 
 export interface NotificationApiData {
   error?: { message: string };
-  success?: Notification;
+  success?: Notification[];
 }
