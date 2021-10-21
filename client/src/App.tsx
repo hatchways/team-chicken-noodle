@@ -28,6 +28,7 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                 <ProtectedRoute exact path="/manage-bookings" component={ManageBookings} />
                 <ProtectedRoute exact path="/profile" component={Profile} />
+                {/* testing */}
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
