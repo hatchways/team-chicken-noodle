@@ -20,34 +20,15 @@ const ManageBookings = (): JSX.Element => {
 
   const [requests, setRequests] = useState<Array<BookingRequest>>([]);
 
-  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>();
-
-  const [nextBooking, setNextBooking] = useState<BookingRequest | undefined>();
-
-  const fetchData = async () => {
-    const responce = await requestList();
-    responce.requests.map((request) => {
-      request.start = new Date(request.start);
-      request.end = new Date(request.end);
-    });
-    setRequests(responce.requests);
-    const upcomingRequests = responce.requests.filter((request) => request.start.getTime() > new Date().getTime());
-    if (upcomingRequests.length > 0) {
-      const tempRequest = upcomingRequests.reduce(
-        (request, closest) =>
-          closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
-            ? request
-            : closest,
-        upcomingRequests[0],
-      );
-      setSelectedBooking(tempRequest);
-      setNextBooking(tempRequest);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  });
+  const nextBooking = requests
+    .filter((request) => request.start.getTime() - new Date().getTime() > 0)
+    .reduce((request, closest) =>
+      closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+        ? request
+        : closest,
+    );
+  nextBooking.isNextBooking = true;
+  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
 
   const handleDateChange = (e: MaterialUiPickersDate) => {
     if (!e) return;
@@ -63,16 +44,16 @@ const ManageBookings = (): JSX.Element => {
     day: MaterialUiPickersDate,
     selectedDate: MaterialUiPickersDate,
     dayInCurrentMonth: boolean,
-    dayCompmonent: JSX.Element,
+    dayComponent: JSX.Element,
   ) => {
     const component =
       day &&
       nextBooking &&
       Intl.DateTimeFormat('en').format(nextBooking.start) ===
         Intl.DateTimeFormat('en').format(new Date(day.toString())) ? (
-        <Avatar className={classes.upcomingBookingCircle}>{dayCompmonent}</Avatar>
+        <Avatar className={classes.upcomingBookingCircle}>{dayComponent}</Avatar>
       ) : (
-        <span>{dayCompmonent}</span>
+        <span>{dayComponent}</span>
       );
     return component;
   };
@@ -135,6 +116,7 @@ const ManageBookings = (): JSX.Element => {
               start={selectedBooking.start}
               end={selectedBooking.end}
               sitterId={selectedBooking.sitterId}
+              isNextBooking={selectedBooking.isNextBooking}
             />
           )) || <NoBooking text="No bookings for selected date" />}
         </Paper>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, MenuItem, IconButton, Grid, Paper, Typography, Avatar } from '@material-ui/core';
+import { Menu, MenuItem, IconButton, Grid, Box, Typography, Avatar } from '@material-ui/core';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -9,8 +9,8 @@ import { requestUpdate } from '../../helpers/APICalls/request';
 
 import useStyles from './useStyles';
 
-const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Element => {
-  const classes = useStyles();
+const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest): JSX.Element => {
+  const classes = useStyles({ isNextBooking });
 
   const [currentStatus, setCurrentStatus] = useState<string>(status);
 
@@ -48,15 +48,15 @@ const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Ele
   const time = `${day} ${month} ${year}, ${startTime}-${endTime}`;
 
   return (
-    <Paper className={classes.root}>
+    <Box boxShadow={2} className={classes.root}>
       <Grid container spacing={1} direction="row">
-        <Grid container xs={8} direction="column" className={classes.leftColumn}>
+        <Grid container xs={9} direction="column" className={classes.leftColumn}>
           <Grid className={classes.timeGrid}>
             <Typography className={classes.timeLabel}>{time}</Typography>
           </Grid>
           <Grid container direction="row" className={`${classes.contactGrid} ${classes.secondLinePadding}`}>
             <Grid>
-              <Avatar />
+              <Avatar className={classes.avatar} />
             </Grid>
             <Grid xs={1}></Grid>
             <Grid>
@@ -64,10 +64,10 @@ const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Ele
             </Grid>
           </Grid>
         </Grid>
-        <Grid container xs={4} direction="column" className={classes.rightColumn}>
+        <Grid container xs={3} direction="column" className={classes.rightColumn}>
           <Grid>
             <IconButton size="small" aria-controls="booking-sub-menu" aria-haspopup="true" onClick={handleClick}>
-              <SettingsIcon fontSize="small" />
+              <SettingsIcon fontSize={isNextBooking ? 'default' : 'small'} />
             </IconButton>
             <Menu id="booking-sub-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
               <MenuItem onClick={handleAccept}>Accept</MenuItem>
@@ -76,13 +76,11 @@ const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Ele
             </Menu>
           </Grid>
           <Grid container direction="row" className={`${classes.statusBar} ${classes.secondLinePadding}`}>
-            <Grid item>
-              <Typography className={classes.statusLabel}>{currentStatus}</Typography>
-            </Grid>
+            <Grid item>{!isNextBooking && <Typography className={classes.statusLabel}>{status}</Typography>}</Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   );
 };
 
