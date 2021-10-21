@@ -21,7 +21,7 @@ export default function Notification(): JSX.Element {
 
   const formatNotficationtime = (date: Date): string => {
     const parsedDate = parseISO(`${date}`);
-    return format(new Date(parsedDate), "m 'min' 'ago");
+    return format(new Date(parsedDate), 'Pp ');
   };
 
   useEffect(() => {
