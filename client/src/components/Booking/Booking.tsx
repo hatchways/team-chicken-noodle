@@ -9,13 +9,8 @@ import { requestUpdate } from '../../helpers/APICalls/request';
 
 import useStyles from './useStyles';
 
-<<<<<<< HEAD
 const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest): JSX.Element => {
   const classes = useStyles({ isNextBooking });
-=======
-const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Element => {
-  const classes = useStyles();
->>>>>>> main
 
   const [currentStatus, setCurrentStatus] = useState<string>(status);
 
