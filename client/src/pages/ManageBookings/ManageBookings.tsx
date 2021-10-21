@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import Booking from '../../components/Booking/Booking';
 import NoBooking from '../../components/Booking/NoBooking';
 import { BookingRequest } from '../../interface/BookingRequest';
-import { mockBookingRequest } from '../../mocks/mockBookingRequest';
 
-import { Grid, Paper, Typography, Avatar, Container, Box } from '@material-ui/core';
+import { Grid, Paper, Typography, Avatar, Box } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+
+import { requestList } from '../../helpers/APICalls/request';
 
 import useStyles from './useStyles';
 
@@ -17,7 +18,7 @@ const ManageBookings = (): JSX.Element => {
   const [date, setDate] = useState<MaterialUiPickersDate>(new Date());
   const [isSelectedDate, setIsSelectedDate] = useState<boolean>(false);
 
-  const [requests, setRequests] = useState<Array<BookingRequest>>(mockBookingRequest);
+  const [requests, setRequests] = useState<Array<BookingRequest>>([]);
 
   const nextBooking = requests
     .filter((request) => request.start.getTime() - new Date().getTime() > 0)
@@ -47,6 +48,7 @@ const ManageBookings = (): JSX.Element => {
   ) => {
     const component =
       day &&
+      nextBooking &&
       Intl.DateTimeFormat('en').format(nextBooking.start) ===
         Intl.DateTimeFormat('en').format(new Date(day.toString())) ? (
         <Avatar className={classes.upcomingBookingCircle}>{dayComponent}</Avatar>
@@ -65,7 +67,8 @@ const ManageBookings = (): JSX.Element => {
       <>
         {currentBookingRequests.map((request) => (
           <Booking
-            key={`${request.sitterId}${request.start.toString()}`}
+            _id={request._id}
+            key={`${request._id}`}
             status={request.status}
             start={request.start}
             end={request.end}
@@ -85,7 +88,8 @@ const ManageBookings = (): JSX.Element => {
       <>
         {pastBookingRequests.map((request) => (
           <Booking
-            key={`${request.sitterId}${request.start.toString()}`}
+            _id={request._id}
+            key={`${request._id}`}
             status={request.status}
             start={request.start}
             end={request.end}
@@ -107,6 +111,7 @@ const ManageBookings = (): JSX.Element => {
           </Typography>
           {(selectedBooking && (
             <Booking
+              _id={selectedBooking._id}
               status={selectedBooking.status}
               start={selectedBooking.start}
               end={selectedBooking.end}

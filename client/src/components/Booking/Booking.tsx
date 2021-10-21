@@ -5,10 +5,19 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { BookingRequest } from '../../interface/BookingRequest';
 
+import { requestUpdate } from '../../helpers/APICalls/request';
+
 import useStyles from './useStyles';
 
+<<<<<<< HEAD
 const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest): JSX.Element => {
   const classes = useStyles({ isNextBooking });
+=======
+const Booking = ({ _id, start, end, status, sitterId }: BookingRequest): JSX.Element => {
+  const classes = useStyles();
+>>>>>>> main
+
+  const [currentStatus, setCurrentStatus] = useState<string>(status);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -16,6 +25,22 @@ const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest
     setAnchorEl(event.currentTarget);
   };
 
+  const handleAccept = async () => {
+    setAnchorEl(null);
+    const result = await requestUpdate(_id, 'accepted');
+    const { request } = result;
+    if (request.status) {
+      setCurrentStatus(request.status);
+    }
+  };
+  const handleDecline = async () => {
+    setAnchorEl(null);
+    const result = await requestUpdate(_id, 'declined');
+    const { request } = result;
+    if (request.status) {
+      setCurrentStatus(request.status);
+    }
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -50,8 +75,8 @@ const Booking = ({ start, end, status, sitterId, isNextBooking }: BookingRequest
               <SettingsIcon fontSize={isNextBooking ? 'default' : 'small'} />
             </IconButton>
             <Menu id="booking-sub-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>Cancel</MenuItem>
-              <MenuItem onClick={handleClose}>About</MenuItem>
+              <MenuItem onClick={handleAccept}>Accept</MenuItem>
+              <MenuItem onClick={handleDecline}>Decline</MenuItem>
               <MenuItem onClick={handleClose}>Other action</MenuItem>
             </Menu>
           </Grid>
