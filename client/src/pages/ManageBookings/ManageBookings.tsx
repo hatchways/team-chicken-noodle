@@ -26,7 +26,6 @@ const ManageBookings = (): JSX.Element => {
   useEffect(() => {
     const fetchData = async () => {
       const responce = await requestList();
-      console.log(responce);
       if (responce.requests) {
         responce.requests.map((request) => {
           request.start = new Date(request.start);
@@ -35,7 +34,7 @@ const ManageBookings = (): JSX.Element => {
         setRequests(responce.requests);
 
         const tempNextBooking = responce.requests
-          .filter((request) => request.start.getTime() - new Date().getTime() > 0)
+          .filter((request) => request.start.getTime() > new Date().getTime())
           .reduce((request, closest) =>
             closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
               ? request
