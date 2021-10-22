@@ -11,6 +11,16 @@ const useStyles = makeStyles((theme) => ({
   resetButton: {
     margin: '1rem 0rem',
   },
+  label: {
+    color: theme.palette.common.black,
+    fontWeight: 'bold',
+  },
+  textField: {
+    marginTop: '1rem',
+  },
+  searchButton: {
+    marginTop: '2rem',
+  },
 }));
 
 export default useStyles;

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 12rem',
   },
   titleText: {
-    marginTop: '14rem',
+    margin: '14rem  0 4rem 0',
     fontWeight: 'bold',
   },
 }));

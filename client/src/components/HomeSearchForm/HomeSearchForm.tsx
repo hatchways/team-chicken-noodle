@@ -1,55 +1,44 @@
-import { TextField, InputAdornment, Button } from '@material-ui/core';
+import { TextField, InputAdornment, InputLabel, Typography, Button, Grid } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
+import { useSnackBar } from '../../context/useSnackbarContext';
 import useStyles from './useStyles';
 import { LocationOn } from '@material-ui/icons';
-
-interface Props {
-  handleSubmit: (
-    {
-      location,
-      dropIn,
-      dropOut,
-    }: {
-      location: string;
-      dropIn: Date;
-      dropOut: Date;
-    },
-    {
-      setStatus,
-      setSubmitting,
-    }: FormikHelpers<{
-      location: string;
-      dropIn: Date;
-      dropOut: Date;
-    }>,
-  ) => void;
-}
+import { useContext } from 'react';
+import { SearchContext } from '../../context/useSearchSitterContext';
+import { searchSitter } from '../../helpers/APICalls/searchSitter';
 
 const HomeSearchForm = (): JSX.Element => {
+  const history = useHistory();
   const classes = useStyles();
+  const SearchSitter = useContext(SearchContext);
+  const { updateSnackBarMessage } = useSnackBar();
   const handleSubmit = (
     { location, dropIn, dropOut }: { location: string; dropIn: Date; dropOut: Date },
     { setSubmitting }: FormikHelpers<{ location: string; dropIn: Date; dropOut: Date }>,
   ) => {
-    //   SearchSitter.dispatch({
-    //     type: 'SET_SEARCH_PARAMS',
-    //     payload: {
-    //       location: location,
-    //       dropIn: dropIn,
-    //       dropOut: dropOut,
-    //     },
-    //   });
-    //   searchSitter({
-    //     location: location,
-    //     dropIn: dropIn,
-    //     dropOut: dropOut,
-    //   }).then((res) => {
-    //     if (res.success) {
-    //       SearchSitter.dispatch({ type: 'UPDATE_SEARCH_RESULT', payload: res.success });
-    //     }
-    //   });
+    SearchSitter.dispatch({
+      type: 'SET_SEARCH_PARAMS',
+      payload: {
+        location: location,
+        dropIn: dropIn,
+        dropOut: dropOut,
+      },
+    });
+    searchSitter({
+      location: location,
+      dropIn: dropIn,
+      dropOut: dropOut,
+    }).then((res) => {
+      if (res.error) {
+        updateSnackBarMessage(res.error.message);
+      } else {
+        SearchSitter.dispatch({ type: 'UPDATE_SEARCH_RESULT', payload: res.success });
+        history.push('/listing');
+      }
+    });
   };
 
   return (
@@ -68,6 +57,11 @@ const HomeSearchForm = (): JSX.Element => {
     >
       {({ handleSubmit, handleChange, values, touched, errors }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
+          <InputLabel className={classes.textField} htmlFor="location">
+            <Typography variant="h6" className={classes.label}>
+              WHERE
+            </Typography>
+          </InputLabel>
           <TextField
             id="location"
             name="location"
@@ -85,10 +79,12 @@ const HomeSearchForm = (): JSX.Element => {
             value={values.location}
             onChange={handleChange}
           />
-          <SelectDate label="Drop In" name="dropIn" />
-          <SelectDate label="Drop Out" name="dropOut" />
-          <Button type="submit" size="small" variant="text" color="secondary" className={classes.resetButton}>
-            Search
+          <Grid item className={classes.textField}>
+            <SelectDate label="Drop In" name="dropIn" />
+            <SelectDate label="Drop Out" name="dropOut" />
+          </Grid>
+          <Button type="submit" size="large" variant="contained" color="secondary" className={classes.searchButton}>
+            FIND MY DOG SITTER
           </Button>
         </form>
       )}
