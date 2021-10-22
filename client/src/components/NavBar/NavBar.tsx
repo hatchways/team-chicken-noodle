@@ -9,6 +9,7 @@ import Logo from '../../Images/logo.png';
 import { Typography, Button, Badge, Link } from '@material-ui/core';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import { NavLink } from 'react-router-dom';
+import Notification from '../Notification/Notification';
 
 export default function NavBar(): JSX.Element {
   const { loggedInUser } = useAuth();
@@ -51,24 +52,10 @@ export default function NavBar(): JSX.Element {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <Link
-                    href="#"
-                    variant="subtitle2"
-                    color="textPrimary"
-                    className={classes.linkText}
-                    underline="always"
-                  >
+                  <NavLink to="/listing" color="textPrimary" className={classes.linkText}>
                     BECOME A SETTER
-                  </Link>
-                  <NavLink to="/dashboard" className={classes.link}>
-                    <Button className={classes.menuBarButton}>
-                      <Badge color="primary" variant="dot" invisible={false}>
-                        <Typography variant="h6" color="textPrimary" className={classes.menuBarText}>
-                          Notifications
-                        </Typography>
-                      </Badge>
-                    </Button>
                   </NavLink>
+                  <Notification />
                   <NavLink to="/manage-bookings" className={classes.link}>
                     <Button className={classes.menuBarButton}>
                       <Typography variant="h6" color="textPrimary" className={classes.menuBarText}>
