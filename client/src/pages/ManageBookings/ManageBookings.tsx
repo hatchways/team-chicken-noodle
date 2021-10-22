@@ -22,17 +22,7 @@ const ManageBookings = (): JSX.Element => {
   const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>();
 
   const [nextBooking, setNextBooking] = useState<BookingRequest | undefined>();
-  /**
-  const nextBooking = requests
-    .filter((request) => request.start.getTime() - new Date().getTime() > 0)
-    .reduce((request, closest) =>
-      closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
-        ? request
-        : closest,
-    );
-  nextBooking.isNextBooking = true;
-  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
-   */
+
   useEffect(() => {
     const fetchData = async () => {
       const responce = await requestList();
@@ -66,6 +56,13 @@ const ManageBookings = (): JSX.Element => {
     const request = requests.find(
       (request) => Intl.DateTimeFormat('en').format(request.start) === Intl.DateTimeFormat('en').format(e),
     );
+    if (
+      nextBooking &&
+      request &&
+      Intl.DateTimeFormat('en').format(nextBooking.start) === Intl.DateTimeFormat('en').format(request.start)
+    ) {
+      request.isNextBooking = true;
+    }
     setSelectedBooking(request);
   };
 
