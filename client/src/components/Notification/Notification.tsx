@@ -44,10 +44,9 @@ export default function Notification(): JSX.Element {
 
   useEffect(() => {
     getAllUnreadNotification().then((res) => {
-      console.log(res);
-      if (res.success && res.success.length === 0) {
+      if (!res.success?.length) {
         setBadge(true);
-      } else if (res.success && res.success.length > 0) {
+      } else if (res.success?.length) {
         setBadge(false);
         dispatch({ type: 'SET_NOTIFICATION', payload: res.success });
       } else {
@@ -57,13 +56,16 @@ export default function Notification(): JSX.Element {
   }, [dispatch]);
   const handleClose = () => {
     setAnchorEl(null);
-    if (notification.length !== 0) {
+    if (!notification.length) {
       markAllNotificationRead().then((res) => {
-        console.log(res);
+        if (res.error) {
+          updateSnackBarMessage(res.error.message);
+        } else {
+          dispatch({ type: 'RESET_NOTIFICATION', payload: [] });
+          setBadge(true);
+        }
       });
     }
-    dispatch({ type: 'RESET_NOTIFICATION', payload: [] });
-    setBadge(true);
   };
 
   return (
