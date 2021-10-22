@@ -1,5 +1,5 @@
 import { Grid, Container, Typography, Button } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import useStyles from './useStyles';
 import { Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,14 +7,13 @@ import { DeleteForeverOutlined } from '@material-ui/icons';
 import uploadImage from '../../helpers/APICalls/uploadImage';
 import updateProfile from '../../helpers/APICalls/updateProfile';
 import { useSnackBar } from '../../context/useSnackbarContext';
-import { ProfileContext } from '../../context/useProfileContext';
 interface ProfileImageKey {
   key: string;
 }
 
 export default function ProfilePhoto(): JSX.Element {
   const classes = useStyles();
-  const Profile = useContext(ProfileContext);
+  const [profileImage, setProfileImage] = React.useState<string>('');
   const { updateSnackBarMessage } = useSnackBar();
   const handleSelectImage = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.currentTarget.files) {
@@ -41,7 +40,7 @@ export default function ProfilePhoto(): JSX.Element {
           </Typography>
         </Grid>
         <Grid item>
-          <Avatar alt="Profile Image" src={Profile.url} className={classes.avatar} />
+          <Avatar alt="Profile Image" src={profileImage} className={classes.avatar} />
         </Grid>
         <Grid item className={classes.caption}>
           <Typography variant="subtitle2" align="center">
@@ -85,7 +84,7 @@ export default function ProfilePhoto(): JSX.Element {
       if (data.error) {
         updateSnackBarMessage(data.error.message);
       } else {
-        Profile.dispatch({ type: 'UPDATE_PROFILE_IMAGE', payload: key });
+        setProfileImage(`/images/${key}`);
         updateSnackBarMessage('Image upload successful');
       }
     });

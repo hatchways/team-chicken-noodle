@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.typography.fontFamily,
     marginRight: '2rem',
     fontWeight: 'bolder',
-    textDecoration: 'underline',
-    color: theme.palette.common.black,
   },
   menuBarText: {
     fontFamily: theme.typography.fontFamily,

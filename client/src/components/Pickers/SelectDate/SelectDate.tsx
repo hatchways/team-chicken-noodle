@@ -1,33 +1,27 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import useStyles from './useStyles';
-import { useField, useFormikContext } from 'formik';
 
-interface IDate {
+interface DateIn {
   label: string;
-  name: string;
 }
 
-export default function SelectDate(props: IDate): JSX.Element {
+export default function SelectDate({ label }: DateIn): JSX.Element {
+  const [date, setDate] = useState<Date | null>(new Date());
   const classes = useStyles();
-  const { setFieldValue } = useFormikContext();
-  const [field] = useField(props);
 
   return (
     <Fragment>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker
-          {...field}
           inputVariant="outlined"
-          label={props.label}
+          label={label}
+          value={date}
           format="MMMM dd"
-          value={(field.value && new Date(field.value)) || null}
           disablePast
           className={classes.date}
-          onChange={(val) => {
-            setFieldValue(field.name, val);
-          }}
+          onChange={(newDate) => setDate(newDate)}
         />
       </MuiPickersUtilsProvider>
     </Fragment>

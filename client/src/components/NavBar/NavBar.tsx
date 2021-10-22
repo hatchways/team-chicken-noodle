@@ -51,9 +51,15 @@ export default function NavBar(): JSX.Element {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <NavLink to="/listing" color="textPrimary" className={classes.linkText}>
+                  <Link
+                    href="#"
+                    variant="subtitle2"
+                    color="textPrimary"
+                    className={classes.linkText}
+                    underline="always"
+                  >
                     BECOME A SETTER
-                  </NavLink>
+                  </Link>
                   <NavLink to="/dashboard" className={classes.link}>
                     <Button className={classes.menuBarButton}>
                       <Badge color="primary" variant="dot" invisible={false}>

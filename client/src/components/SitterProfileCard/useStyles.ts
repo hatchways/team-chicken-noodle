@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   description: {
-    minHeight: '4rem',
     margin: '0 3rem 1rem',
   },
   horizontalLine: {
