@@ -81,7 +81,7 @@ export default function Notification(): JSX.Element {
                 <Avatar variant="square" src={notif.context?.profileImage} className={classes.avatarSize} />
                 <Grid>
                   <Typography variant="subtitle1" className={classes.boldText}>
-                    {`${notif.context?.name} has requested your service for 2 hours`}
+                    {`${notif.context?.name} has requested your service`}
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary" className={classes.boldText}>
                     Dog sitting
@@ -95,8 +95,12 @@ export default function Notification(): JSX.Element {
           })
         ) : (
           <MenuItem>
-            <Typography variant="subtitle1" align="center" className={classes.boldText}>
-              Your have no notification
+            <Typography
+              variant="subtitle1"
+              align="center"
+              className={`${classes.boldText}  ${classes.noNotificationText}`}
+            >
+              You have no notification
             </Typography>
           </MenuItem>
         )}

@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   menuBarButton: {
     marginRight: '2rem',
   },
+  noNotificationText: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;
