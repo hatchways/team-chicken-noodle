@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   resetButton: {
     margin: '1rem 0rem',
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 export default useStyles;

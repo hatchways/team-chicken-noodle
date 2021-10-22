@@ -22,6 +22,16 @@ const useStyles = makeStyles(() => ({
   textArea: {
     width: '100%',
   },
+  form: {
+    width: '100%',
+    display: 'contents',
+  },
+  requestDate: {
+    padding: '10px',
+  },
+  cardButtons: {
+    padding: '10px',
+  },
 }));
 
 export default useStyles;
