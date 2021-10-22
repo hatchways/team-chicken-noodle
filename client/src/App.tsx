@@ -13,13 +13,13 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import NavBar from './components/NavBar/NavBar';
+import HomePage from './pages/Home/HomePage';
 import { NotificationProvider } from './context/useNotificationContext';
 import { ProfileProvider } from './context/useProfileContext';
 import { SitterSearchProvider } from './context/useSearchSitterContext';
 import Listing from './pages/Listing/Listing';
 import ProfilePhoto from './components/ProfilePhoto/ProfilePhoto';
 import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
-
 
 function App(): JSX.Element {
   return (
@@ -42,7 +42,7 @@ function App(): JSX.Element {
                       <ProtectedRoute exact path="/manage-bookings" component={ManageBookings} />
                       <ProtectedRoute exact path="/profile" component={Profile} />
                       <Route path="*">
-                        <Redirect to="/login" />
+                        <Redirect to="/home" />
                       </Route>
                     </Switch>
                   </ProfileProvider>
