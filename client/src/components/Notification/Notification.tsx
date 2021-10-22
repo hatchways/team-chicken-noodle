@@ -6,6 +6,13 @@ import { getAllUnreadNotification, markAllNotificationRead } from '../../helpers
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns/esm';
+import { NavLink } from 'react-router-dom';
+
+const NotificationTypeDescription = {
+  request: 'has requested your service',
+  accept: 'has accepted your request',
+  decline: 'has declined your request',
+};
 
 export default function Notification(): JSX.Element {
   const classes = useStyles();
@@ -19,9 +26,20 @@ export default function Notification(): JSX.Element {
     setBadge(true);
   };
 
-  const formatNotficationtime = (date: Date): string => {
+  const formatNotificationTime = (date: Date): string => {
     const parsedDate = parseISO(`${date}`);
     return format(new Date(parsedDate), 'Pp ');
+  };
+  const notificationType = (type: string | undefined) => {
+    if (type === 'request') {
+      return NotificationTypeDescription.request;
+    }
+    if (type === 'accept') {
+      return NotificationTypeDescription.accept;
+    }
+    if (type === 'decline') {
+      return NotificationTypeDescription.decline;
+    }
   };
 
   useEffect(() => {
@@ -75,19 +93,19 @@ export default function Notification(): JSX.Element {
         getContentAnchorEl={null}
       >
         {notification.length > 0 ? (
-          notification.map((notif) => {
+          notification.map((notify) => {
             return (
-              <MenuItem key={notif._id}>
-                <Avatar variant="square" src={notif.context?.profileImage} className={classes.avatarSize} />
+              <MenuItem key={notify._id}>
+                <Avatar variant="square" src={notify.context?.profileImage} className={classes.avatarSize} />
                 <Grid>
                   <Typography variant="subtitle1" className={classes.boldText}>
-                    {`${notif.context?.name} has requested your service`}
+                    {`${notify.context?.name} ${notificationType(notify.type)}`}
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary" className={classes.boldText}>
-                    Dog sitting
+                    {`${notify.description}`}
                   </Typography>
                   <Typography variant="subtitle1" className={classes.boldText}>
-                    {`${formatNotficationtime(notif.createdAt)}`}
+                    {`${formatNotificationTime(notify.createdAt)}`}
                   </Typography>
                 </Grid>
               </MenuItem>
