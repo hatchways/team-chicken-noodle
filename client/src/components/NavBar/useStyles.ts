@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolBar: {
     height: '100%',
+    zIndex: 1,
   },
   logo: {
     maxWidth: 180,
