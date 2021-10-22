@@ -35,8 +35,10 @@ const HomeSearchForm = (): JSX.Element => {
       if (res.error) {
         updateSnackBarMessage(res.error.message);
       } else {
-        SearchSitter.dispatch({ type: 'UPDATE_SEARCH_RESULT', payload: res.success });
-        history.push('/listing');
+        if (res.success) {
+          SearchSitter.dispatch({ type: 'UPDATE_SEARCH_RESULT', payload: res.success });
+          history.push('/listing');
+        }
       }
     });
   };

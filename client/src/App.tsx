@@ -33,6 +33,7 @@ function App(): JSX.Element {
                   <ProfileProvider>
                     <NavBar />
                     <Switch>
+                      <Route exact path="/home" component={HomePage} />
                       <Route exact path="/login" component={Login} />
                       <Route exact path="/signup" component={Signup} />
                       <Route exact path="/listing" component={Listing} />
