@@ -1,9 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
+interface tempInterface {
+  isNextBooking?: boolean;
+}
+
 const useStyles = makeStyles(() => ({
   root: {
     margin: 10,
-    border: '1px solid #f3f3f3',
+    border: (props: tempInterface) => (props.isNextBooking ? '' : '1px solid #f3f3f3'),
+    borderRadius: 5,
   },
   leftColumn: {
     justifyContent: 'flex-start',
@@ -11,40 +16,46 @@ const useStyles = makeStyles(() => ({
     padding: 15,
   },
   rightColumn: {
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'flex-end',
     padding: 15,
+    paddingLeft: 0,
   },
   contactGrid: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 10,
   },
+  avatar: {
+    width: (props: tempInterface) => (props.isNextBooking ? 45 : 40),
+    height: (props: tempInterface) => (props.isNextBooking ? 45 : 40),
+  },
   secondLinePadding: {
     paddingTop: 20,
     paddingBottom: 20,
   },
   bookingSitterName: {
-    fontSize: 15,
+    fontSize: (props: tempInterface) => (props.isNextBooking ? 18 : 16),
     fontWeight: 'bold',
   },
   timeGrid: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingLeft: 10,
   },
   timeLabel: {
-    fontSize: 14,
+    fontSize: (props: tempInterface) => (props.isNextBooking ? 18 : 16),
     fontWeight: 'bold',
   },
   statusBar: {
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: 7,
   },
   statusLabel: {
     color: '#c5c5c5',
     textTransform: 'uppercase',
-    fontSize: 15,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 }));
 

@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     width: '10rem',
-
     backgroundColor: theme.palette.common.white,
   },
   box: {
