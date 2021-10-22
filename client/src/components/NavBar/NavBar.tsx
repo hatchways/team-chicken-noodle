@@ -52,15 +52,9 @@ export default function NavBar(): JSX.Element {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <Link
-                    href="#"
-                    variant="subtitle2"
-                    color="textPrimary"
-                    className={classes.linkText}
-                    underline="always"
-                  >
+                  <NavLink to="/listing" color="textPrimary" className={classes.linkText}>
                     BECOME A SETTER
-                  </Link>
+                  </NavLink>
                   <Notification />
                   <NavLink to="/manage-bookings" className={classes.link}>
                     <Button className={classes.menuBarButton}>
