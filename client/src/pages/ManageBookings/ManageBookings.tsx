@@ -22,7 +22,17 @@ const ManageBookings = (): JSX.Element => {
   const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>();
 
   const [nextBooking, setNextBooking] = useState<BookingRequest | undefined>();
-
+  /**
+  const nextBooking = requests
+    .filter((request) => request.start.getTime() - new Date().getTime() > 0)
+    .reduce((request, closest) =>
+      closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+        ? request
+        : closest,
+    );
+  nextBooking.isNextBooking = true;
+  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
+   */
   useEffect(() => {
     const fetchData = async () => {
       const responce = await requestList();
@@ -34,18 +44,16 @@ const ManageBookings = (): JSX.Element => {
         });
         setRequests(responce.requests);
 
-        const upcomingRequests = responce.requests.filter((request) => request.start.getTime() > new Date().getTime());
-        if (upcomingRequests.length > 0) {
-          const tempRequest = upcomingRequests.reduce(
-            (request, closest) =>
-              closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
-                ? request
-                : closest,
-            upcomingRequests[0],
+        const tempNextBooking = responce.requests
+          .filter((request) => request.start.getTime() - new Date().getTime() > 0)
+          .reduce((request, closest) =>
+            closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+              ? request
+              : closest,
           );
-          setSelectedBooking(tempRequest);
-          setNextBooking(tempRequest);
-        }
+        tempNextBooking.isNextBooking = true;
+        setNextBooking(tempNextBooking);
+        setSelectedBooking(tempNextBooking);
       }
     };
     fetchData();
