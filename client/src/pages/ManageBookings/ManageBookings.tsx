@@ -19,16 +19,37 @@ const ManageBookings = (): JSX.Element => {
   const [isSelectedDate, setIsSelectedDate] = useState<boolean>(false);
 
   const [requests, setRequests] = useState<Array<BookingRequest>>([]);
+  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>();
 
-  const nextBooking = requests
-    .filter((request) => request.start.getTime() - new Date().getTime() > 0)
-    .reduce((request, closest) =>
-      closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
-        ? request
-        : closest,
-    );
-  nextBooking.isNextBooking = true;
-  const [selectedBooking, setSelectedBooking] = useState<BookingRequest | undefined>(nextBooking);
+  const [nextBooking, setNextBooking] = useState<BookingRequest | undefined>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const responce = await requestList();
+      console.log(responce);
+      if (responce.requests) {
+        responce.requests.map((request) => {
+          request.start = new Date(request.start);
+          request.end = new Date(request.end);
+        });
+        setRequests(responce.requests);
+
+        const upcomingRequests = responce.requests.filter((request) => request.start.getTime() > new Date().getTime());
+        if (upcomingRequests.length > 0) {
+          const tempRequest = upcomingRequests.reduce(
+            (request, closest) =>
+              closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
+                ? request
+                : closest,
+            upcomingRequests[0],
+          );
+          setSelectedBooking(tempRequest);
+          setNextBooking(tempRequest);
+        }
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleDateChange = (e: MaterialUiPickersDate) => {
     if (!e) return;
