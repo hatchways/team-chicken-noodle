@@ -17,9 +17,7 @@ export default function SitterProfileCard({
   return (
     <Grid container elevation={4} direction="column" component={Paper} className={classes.root}>
       <Grid item>
-        <Avatar src={`/images/${profilePhoto}`} className={classes.avatar}>
-          P
-        </Avatar>
+        <Avatar src={`/images/${profilePhoto}`} className={classes.avatar} />
 
         <Typography align="center" variant="h5" color="textPrimary">
           {`${firstName} ${lastName}`}
