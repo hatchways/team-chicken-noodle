@@ -10,13 +10,13 @@ import FormControl from '@material-ui/core/FormControl';
 
 import useStyles from './useStyles';
 
-import { Profile } from '../../interface/Profile';
+import { IProfile } from '../../interface/Profile';
 
 import { useState } from 'react';
 
 import { useFormik } from 'formik';
 
-const EditProfile = (props: Profile): JSX.Element => {
+const EditProfile = (props: IProfile): JSX.Element => {
   const classes = useStyles();
 
   const [birthDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -82,8 +82,8 @@ const EditProfile = (props: Profile): JSX.Element => {
                     <NativeSelect id="gender" value={formik.values.gender} onChange={formik.handleChange}>
                       <option value={'male'}>Male</option>
                       <option value={'female'}>Female</option>
-                      <option selected value={'unkown'}>
-                        Unkown
+                      <option selected value={'unknown'}>
+                        Unknown
                       </option>
                     </NativeSelect>
                   </FormControl>

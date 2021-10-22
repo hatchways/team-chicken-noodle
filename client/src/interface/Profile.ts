@@ -36,6 +36,7 @@ export interface IProfile {
   gender?: string;
   birthDate?: Date;
   shortDescription?: string;
+  email?: string;
   phoneNumber?: number;
   hourlyRate?: number;
   address?: Address;
