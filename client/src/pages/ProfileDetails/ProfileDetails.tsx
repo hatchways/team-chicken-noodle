@@ -123,7 +123,7 @@ export default function ProfileDetails(): JSX.Element {
               </Fragment>
             )}
           </Grid>
-          <RequestCard />
+          <RequestCard id={`${id}`} />
         </Container>
       ) : (
         <Fragment></Fragment>

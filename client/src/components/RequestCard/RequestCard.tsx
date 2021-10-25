@@ -1,4 +1,4 @@
-import { Grid, Paper, Button } from '@material-ui/core';
+import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import useStyles from './useStyles';
 import * as Yup from 'yup';
@@ -6,14 +6,27 @@ import PriceTag from '../../components/PriceTag/PriceTag';
 import SelectDate from '../../components/Pickers/SelectDate/SelectDate';
 import SelectTime from '../../components/Pickers/SelectTime/SelectTime';
 import { Formik, FormikHelpers } from 'formik';
+import { requestCreate } from '../../helpers/APICalls/request';
+import { useState } from 'react';
 
-export default function RequestCard(): JSX.Element {
+interface Props {
+  id: string;
+}
+
+export default function RequestCard({ id }: Props): JSX.Element {
   const classes = useStyles();
+  const [isRequestSent, setRequestStatus] = useState(false);
   const handleSubmit = (
     { dropIn, dropOut, dropInTime, dropOutTime }: { dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date },
     { setSubmitting }: FormikHelpers<{ dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date }>,
   ): void => {
     //@TODO handle request api call
+    // send notification to sitter that this user requested the service
+    requestCreate(id, dropIn, dropOut).then((res) => {
+      if (res.request) {
+        setRequestStatus(true);
+      }
+    });
   };
 
   return (
@@ -59,11 +72,16 @@ export default function RequestCard(): JSX.Element {
                 <SelectDate label="Drop Out" name="dropOut" />
                 <SelectTime label="Time" name="dropOutTime" />
               </Grid>
-              <Grid item className={classes.cardButtons}>
-                <Button type="submit" variant="contained" color="secondary">
-                  Send Request
-                </Button>
-              </Grid>
+              {isRequestSent ? (
+                <Typography variant="subtitle2"> Request has been sent to the sitter </Typography>
+              ) : (
+                <Grid item className={classes.cardButtons}>
+                  <Button type="submit" variant="contained" color="secondary">
+                    Send Request
+                  </Button>
+                </Grid>
+              )}
+
               <Grid item className={classes.cardButtons}>
                 <Button variant="contained" color="secondary">
                   Message

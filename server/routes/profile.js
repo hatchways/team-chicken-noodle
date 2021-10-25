@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.route("/").post(protect, createProfile);
 
-router.route("/profiles").post(protect, findAllProfiles);
+router.route("/profiles").post(findAllProfiles);
 
 router.route("/").get(protect, findProfileById).put(protect, updateProfile);
 
