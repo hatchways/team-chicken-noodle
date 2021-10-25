@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Menu, MenuItem, IconButton, Grid, Box, Typography, Avatar } from '@material-ui/core';
+import { Menu, MenuItem, IconButton, Grid, Box, Typography, Avatar, Button } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -76,7 +77,16 @@ const Booking = ({ _id, start, end, status, sitterId, isNextBooking }: BookingRe
             </Menu>
           </Grid>
           <Grid container direction="row" className={`${classes.statusBar} ${classes.secondLinePadding}`}>
-            <Grid item>{!isNextBooking && <Typography className={classes.statusLabel}>{status}</Typography>}</Grid>
+            <Grid item>
+              {!isNextBooking && <Typography className={classes.statusLabel}>{currentStatus}</Typography>}
+              {currentStatus === 'accepted' && (
+                <NavLink to="/summary" className={classes.link}>
+                  <Button variant="contained" color="secondary">
+                    Checkout
+                  </Button>
+                </NavLink>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

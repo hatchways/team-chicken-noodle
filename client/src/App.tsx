@@ -20,6 +20,8 @@ import { SitterSearchProvider } from './context/useSearchSitterContext';
 import Listing from './pages/Listing/Listing';
 import ProfilePhoto from './components/ProfilePhoto/ProfilePhoto';
 import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
+import Summary from './components/Summary/Summary';
+import CheckoutForm from './components/CheckoutForm/CheckoutForm';
 
 function App(): JSX.Element {
   return (
@@ -42,6 +44,8 @@ function App(): JSX.Element {
                       <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                       <ProtectedRoute exact path="/manage-bookings" component={ManageBookings} />
                       <ProtectedRoute exact path="/profile" component={Profile} />
+                      <ProtectedRoute exact path="/summary" component={Summary} />
+                      <ProtectedRoute exact path="/checkout" component={CheckoutForm} />
                       <Route path="*">
                         <Redirect to="/home" />
                       </Route>

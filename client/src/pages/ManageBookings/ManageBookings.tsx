@@ -26,23 +26,23 @@ const ManageBookings = (): JSX.Element => {
   useEffect(() => {
     const fetchData = async () => {
       const responce = await requestList();
-      if (responce.requests) {
+      if (responce.requests.length > 0) {
         responce.requests.map((request) => {
           request.start = new Date(request.start);
           request.end = new Date(request.end);
         });
         setRequests(responce.requests);
-
-        const tempNextBooking = responce.requests
-          .filter((request) => request.start.getTime() > new Date().getTime())
-          .reduce((request, closest) =>
+        const nextBooking = responce.requests.filter((request) => request.start.getTime() > new Date().getTime());
+        if (nextBooking.length > 0) {
+          const tempNextBooking = nextBooking.reduce((request, closest) =>
             closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
               ? request
               : closest,
           );
-        tempNextBooking.isNextBooking = true;
-        setNextBooking(tempNextBooking);
-        setSelectedBooking(tempNextBooking);
+          tempNextBooking.isNextBooking = true;
+          setNextBooking(tempNextBooking);
+          setSelectedBooking(tempNextBooking);
+        }
       }
     };
     fetchData();

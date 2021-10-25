@@ -8,23 +8,31 @@ import SelectTime from '../../components/Pickers/SelectTime/SelectTime';
 import { Formik, FormikHelpers } from 'formik';
 import { requestCreate } from '../../helpers/APICalls/request';
 import { useState } from 'react';
-
+import { sendNotification } from '../../helpers/APICalls/notification';
+import { useAuth } from '../../context/useAuthContext';
+import { ProfileContext } from '../../context/useProfileContext';
+import { useContext } from 'react';
 interface Props {
   id: string;
 }
 
 export default function RequestCard({ id }: Props): JSX.Element {
+  const { loggedInUser } = useAuth();
   const classes = useStyles();
+  const Profile = useContext(ProfileContext);
   const [isRequestSent, setRequestStatus] = useState(false);
   const handleSubmit = (
     { dropIn, dropOut, dropInTime, dropOutTime }: { dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date },
     { setSubmitting }: FormikHelpers<{ dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date }>,
   ): void => {
-    //@TODO handle request api call
     // send notification to sitter that this user requested the service
     requestCreate(id, dropIn, dropOut).then((res) => {
       if (res.request) {
         setRequestStatus(true);
+        sendNotification(id, 'request', 'Request for dog sitting', 'Request for dog sitting', {
+          name: loggedInUser?.username || ' ',
+          profilePhoto: Profile.id,
+        });
       }
     });
   };

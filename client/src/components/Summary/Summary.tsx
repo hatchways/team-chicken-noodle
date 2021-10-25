@@ -6,6 +6,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider, TimePicker } from '@material-ui/pickers';
 import { useState } from 'react';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { NavLink } from 'react-router-dom';
 
 export default function Summary(): JSX.Element {
   const [pickerDate, setDate] = useState<MaterialUiPickersDate>(new Date());
@@ -119,9 +120,11 @@ export default function Summary(): JSX.Element {
             <Grid item>$741.6</Grid>
           </Grid>
           <Grid item className={classes.paymentButton}>
-            <Button variant="outlined" color="secondary">
-              Continue to Payment
-            </Button>
+            <NavLink to="/checkout" className={classes.link}>
+              <Button variant="outlined" color="secondary">
+                Continue to Payment
+              </Button>
+            </NavLink>
           </Grid>
         </Grid>
       </Grid>
