@@ -6,17 +6,14 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   description: String,
-  stock: mongoose.Number,
-  price: mongoose.Number,
+  stock: Number,
+  price: Number,
   company: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "company",
   },
-  timestamps: {
-    createdAt: { type: Date, default: Date.now() },
-    updatedAt: Date,
-  },
+  timestamps: true,
 });
 
 module.exports = Product = mongoose.model("product", productSchema);

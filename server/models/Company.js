@@ -22,7 +22,7 @@ const companySchema = new mongoose.Schema({
       ref: "review",
     },
   ],
-  timestamps: Date,
+  timestamps: true,
 });
 
 module.exports = Company = mongoose.model("company", companySchema);
