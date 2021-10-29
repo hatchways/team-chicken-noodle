@@ -117,13 +117,7 @@ const EditProfile = (props: IProfile): JSX.Element => {
                   <InputLabel className={classes.profileProp}>email</InputLabel>
                 </Grid>
                 <Grid container xs={8}>
-                  <Input
-                    id="email"
-                    placeholder="Email"
-                    className={classes.input}
-                    //value={formik.values.email}
-                    onChange={formik.handleChange}
-                  />
+                  <Input id="email" placeholder="Email" className={classes.input} onChange={formik.handleChange} />
                 </Grid>
               </Grid>
             </Grid>

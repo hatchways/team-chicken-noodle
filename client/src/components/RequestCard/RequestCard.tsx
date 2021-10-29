@@ -25,7 +25,6 @@ export default function RequestCard({ id }: Props): JSX.Element {
     { dropIn, dropOut, dropInTime, dropOutTime }: { dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date },
     { setSubmitting }: FormikHelpers<{ dropOutTime: Date; dropIn: Date; dropInTime: Date; dropOut: Date }>,
   ): void => {
-    // send notification to sitter that this user requested the service
     requestCreate(id, dropIn, dropOut).then((res) => {
       if (res.request) {
         setRequestStatus(true);
