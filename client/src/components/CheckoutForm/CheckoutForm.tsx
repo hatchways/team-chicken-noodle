@@ -12,7 +12,7 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 const CardElementOption = {
   hidePostalCode: true,
 };
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 interface Checkout {
   fullName: string;
   email: string;
@@ -53,6 +53,7 @@ const Checkout = (): JSX.Element => {
       const confirmedCardPayment = await stripe?.confirmCardPayment(paymentIndent.success.clientSecret, {
         payment_method: paymentMethodReq?.paymentMethod?.id,
       });
+      console.log(confirmedCardPayment);
       if (confirmedCardPayment?.paymentIntent?.status === 'succeeded') {
         updateSnackBarMessage('Payment was successful');
       }
