@@ -16,6 +16,7 @@ const requestRouter = require("./routes/request");
 const imageRouter = require("./routes/image");
 const notificationRouter = require("./routes/notification");
 const companyRouter = require("./routes/company");
+const productRouter = require("./routes/product");
 
 const { json, urlencoded } = express;
 
@@ -53,6 +54,7 @@ app.use("/request", requestRouter);
 app.use("/images", imageRouter);
 app.use("/notification", notificationRouter);
 app.use("/company", companyRouter);
+app.use("/product", productRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

@@ -29,3 +29,27 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ message: "product updated", product });
 });
+
+// @route Post /product/:id/add-review
+// @desc add review to the product
+// @access Private
+exports.addReview = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const { review, rating } = req.body;
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+  if (product) {
+    const newReview = await Review.create({
+      review,
+      rating,
+      userId,
+    });
+    product.reviews.push(newReview);
+    await product.save();
+    res.status(201).json({ message: "review added", newReview });
+  } else {
+    res.status(201).json({ message: "invalid product" });
+  }
+});

@@ -70,11 +70,12 @@ exports.updateCompany = asyncHandler(async (req, res, next) => {
 // @desc add product to the company
 // @access Private
 exports.addProduct = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
   const { name, description, stock, price } = req.body;
   const { id } = req.params;
 
   const company = await Company.findById(id);
-  if (company) {
+  if (company && company.owner == userId) {
     const product = await Product.create({
       name,
       description,
@@ -87,5 +88,23 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
     res.status(201).json({ message: "product added", product });
   } else {
     res.status(201).json({ message: "invalid company" });
+  }
+});
+
+// @route Post /company/:id/list-products
+// @desc list products of specified company
+// @access Private
+exports.listProducts = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const company = await Company.findById(id);
+  if (company) {
+    await company.populate("products").execPopulate();
+    res.status(200).json({
+      message: "populated products",
+      products: company.products,
+    });
+  } else {
+    res.status(200).json({ message: "invalid company" });
   }
 });

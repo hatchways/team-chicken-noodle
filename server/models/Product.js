@@ -14,6 +14,12 @@ const productSchema = new mongoose.Schema(
       required: true,
       ref: "company",
     },
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "review",
+      },
+    ],
   },
   {
     timestamps: true,
