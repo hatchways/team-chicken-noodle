@@ -33,14 +33,17 @@ const ManageBookings = (): JSX.Element => {
         });
         setRequests(responce.requests);
 
-        const tempNextBooking = responce.requests
-          .filter((request) => request.start.getTime() > new Date().getTime())
-          .reduce((request, closest) =>
+        let tempNextBooking;
+        const tempNextBookings = responce.requests.filter((request) => request.start.getTime() > new Date().getTime());
+        if (tempNextBookings.length) {
+          tempNextBooking = tempNextBookings.reduce((request, closest) =>
             closest.start.getTime() - new Date().getTime() > request.start.getTime() - new Date().getTime()
               ? request
               : closest,
           );
-        tempNextBooking.isNextBooking = true;
+          tempNextBooking.isNextBooking = true;
+        }
+
         setNextBooking(tempNextBooking);
         setSelectedBooking(tempNextBooking);
       }

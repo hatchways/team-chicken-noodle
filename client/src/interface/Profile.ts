@@ -28,6 +28,7 @@ export interface SitterSearchParams {
 export interface IProfile {
   _id?: string;
   userId?: string;
+  email?: string;
   firstName?: string;
   lastName?: string;
   isAvailable?: boolean;

@@ -10,13 +10,13 @@ import FormControl from '@material-ui/core/FormControl';
 
 import useStyles from './useStyles';
 
-import { Profile } from '../../interface/Profile';
+import { IProfile } from '../../interface/Profile';
 
 import { useState } from 'react';
 
 import { useFormik } from 'formik';
 
-const EditProfile = (props: Profile): JSX.Element => {
+const EditProfile = (props: IProfile): JSX.Element => {
   const classes = useStyles();
 
   const [birthDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -36,7 +36,7 @@ const EditProfile = (props: Profile): JSX.Element => {
     <Paper>
       <Grid container className={classes.root}>
         <Grid item xs={12}>
-          <h2 className={classes.title}>Edit Profile</h2>
+          <h2 className={classes.title}>Edit IProfile</h2>
         </Grid>
         <Grid container direction="column" className={classes.profileContainer}>
           <form className={classes.form} onSubmit={formik.handleSubmit}>
