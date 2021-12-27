@@ -3,7 +3,8 @@ import useStyles from './useStyles';
 import { Paper } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { CircularProgress } from '@material-ui/core';
 import { getPaymentIntent } from '../../helpers/APICalls/checkout';
 import { useSnackBar } from '../../context/useSnackbarContext';
@@ -11,14 +12,20 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 const CardElementOption = {
   hidePostalCode: true,
 };
-
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 interface Checkout {
   fullName: string;
   email: string;
   phoneNumber: string;
 }
 
-const CheckoutForm = (): JSX.Element => {
+const CheckoutForm = (): JSX.Element => (
+  <Elements stripe={stripePromise}>
+    <Checkout />
+  </Elements>
+);
+
+const Checkout = (): JSX.Element => {
   const { updateSnackBarMessage } = useSnackBar();
   const stripe = useStripe();
   const elements = useElements();
@@ -46,6 +53,7 @@ const CheckoutForm = (): JSX.Element => {
       const confirmedCardPayment = await stripe?.confirmCardPayment(paymentIndent.success.clientSecret, {
         payment_method: paymentMethodReq?.paymentMethod?.id,
       });
+      console.log(confirmedCardPayment);
       if (confirmedCardPayment?.paymentIntent?.status === 'succeeded') {
         updateSnackBarMessage('Payment was successful');
       }

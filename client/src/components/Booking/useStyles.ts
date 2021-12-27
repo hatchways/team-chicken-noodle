@@ -57,6 +57,9 @@ const useStyles = makeStyles(() => ({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 export default useStyles;

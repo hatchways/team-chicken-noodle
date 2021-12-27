@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
     height: '1px',
     opacity: 0.2,
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 export default useStyles;

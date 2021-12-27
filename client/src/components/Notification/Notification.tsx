@@ -56,7 +56,7 @@ export default function Notification(): JSX.Element {
   }, [dispatch]);
   const handleClose = () => {
     setAnchorEl(null);
-    if (!notification.length) {
+    if (notification.length) {
       markAllNotificationRead().then((res) => {
         if (res.error) {
           updateSnackBarMessage(res.error.message);

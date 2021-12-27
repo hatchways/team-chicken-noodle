@@ -26,6 +26,26 @@ export async function getAllUnreadNotification(): Promise<NotificationApiData> {
     }));
 }
 
+export async function sendNotification(
+  userId: string,
+  type: string,
+  title: string,
+  description: string,
+  context: { name: string; profilePhoto: string },
+): Promise<NotificationApiData> {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, type, title, description, context }),
+    credentials: 'include',
+  };
+  return await fetch(`/notification/`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+}
+
 export async function markAllNotificationRead(): Promise<NotificationApiData> {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
