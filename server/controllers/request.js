@@ -4,7 +4,15 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.requestList = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
-  const requests = await Request.find({ userId: userId });
+  const requests = await Request.find({ userId: userId })
+    .populate("sitterId")
+    .exec(function (err, users) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(users);
+      }
+    });
 
   res.status(200).json({ requests: requests });
 });

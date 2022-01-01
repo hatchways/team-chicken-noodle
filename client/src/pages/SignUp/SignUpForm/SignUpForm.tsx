@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 interface Props {
   handleSubmit: (
     {
+      firstName,
+      lastName,
       username,
       email,
       password,
@@ -19,6 +21,8 @@ interface Props {
       email: string;
       password: string;
       username: string;
+      firstName: string;
+      lastName: string;
     },
     {
       setStatus,
@@ -27,6 +31,8 @@ interface Props {
       email: string;
       password: string;
       username: string;
+      firstName: string;
+      lastName: string;
     }>,
   ) => void;
 }
@@ -40,6 +46,8 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
         email: '',
         password: '',
         username: '',
+        firstName: '',
+        lastName: '',
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required('Username is required').max(40, 'Username is too long'),
@@ -75,14 +83,14 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
           />
           <InputLabel className={classes.textField} htmlFor="username">
             <Typography variant="subtitle2" className={classes.label}>
-              NAME
+              USERNAME
             </Typography>
           </InputLabel>
           <TextField
             id="username"
             variant="outlined"
             fullWidth
-            placeholder="Your name"
+            placeholder="Your username"
             InputProps={{
               classes: { input: classes.inputs },
             }}
@@ -92,6 +100,43 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             helperText={touched.username ? errors.username : ''}
             error={touched.username && Boolean(errors.username)}
             value={values.username}
+            onChange={handleChange}
+          />
+          <InputLabel className={classes.textField} htmlFor="firstName">
+            <Typography variant="subtitle2" className={classes.label}>
+              First and Last Name
+            </Typography>
+          </InputLabel>
+          <TextField
+            id="firstName"
+            variant="outlined"
+            fullWidth
+            placeholder="First name"
+            InputProps={{
+              classes: { input: classes.inputs },
+            }}
+            name="firstName"
+            autoComplete="firstName"
+            autoFocus
+            helperText={touched.firstName ? errors.firstName : ''}
+            error={touched.firstName && Boolean(errors.firstName)}
+            value={values.firstName}
+            onChange={handleChange}
+          />
+          <TextField
+            id="lastName"
+            variant="outlined"
+            fullWidth
+            placeholder="Last name"
+            InputProps={{
+              classes: { input: classes.inputs },
+            }}
+            name="lastName"
+            autoComplete="lastName"
+            autoFocus
+            helperText={touched.lastName ? errors.lastName : ''}
+            error={touched.lastName && Boolean(errors.lastName)}
+            value={values.lastName}
             onChange={handleChange}
           />
           <InputLabel className={classes.textField} htmlFor="password">
